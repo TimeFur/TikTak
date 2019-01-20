@@ -45,11 +45,14 @@ public class MainActivity extends AppCompatActivity {
 
         item.put("time", "9:01");
         item.put("Ring", "Ring");
-        item.put("music", "000.mp3"); //music path
-        clock_data.add(item);
         clock_data.add(item);
 
-        SimpleAdapter clock_list_adapter = new SimpleAdapter(
+        Map<String, Object> item1 = new HashMap<String, Object>();
+        item1.put("time", "18:00");
+        item1.put("Ring", "Ring");
+        clock_data.add(item1);
+
+        SimpleAdapter clock_list_adapter = new clock_list_item_adapter(
                 this,
                 clock_data,
                 R.layout.clock_list_item_layout,
@@ -58,24 +61,6 @@ public class MainActivity extends AppCompatActivity {
         );
 
         clock_list.setAdapter(clock_list_adapter);
-        clock_list.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                Map<String, Object> item = (Map<String, Object>) parent.getItemAtPosition(position);
-                Log.v(TAG, position + "");
-
-                count++;
-                item.put("time", count + "");
-
-                String time = (String)item.get("time");
-                String Ring = (String)item.get("Ring");
-
-                Log.v(TAG, Ring);
-                Log.v(TAG, time);
-            }
-        });
-//        clock_list.setOnItemClickListener(new clock_list_item_click_function());
-
 //        clock_list.invalidate(); // fresh data
 
         //-----------------------------------setting the trigger ringing button (test)

@@ -34,7 +34,7 @@
             android:layout_height="wrap_content"
             android:descendantFocusability="blocksDescendants"
             android:layout_gravity="center_horizontal">
-<!--
+
             <ToggleButton
                 android:layout_width="36dp"
                 android:layout_height="wrap_content"
@@ -42,6 +42,7 @@
                 android:textOff=""
                 android:textOn=""
                 android:id="@+id/Sun" />
+            <!--
             <ToggleButton
                 android:layout_width="36dp"
                 android:layout_height="wrap_content"
