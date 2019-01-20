@@ -1,6 +1,9 @@
 package com.example.chin.tiktak;
 
+import android.content.res.AssetFileDescriptor;
 import android.graphics.Point;
+import android.media.MediaPlayer;
+import android.net.Uri;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -14,14 +17,15 @@ import java.util.Random;
 public class Ring_playground extends AppCompatActivity {
 
     String TAG = "Playground";
+    public MediaPlayer mp;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_ring_playground);
 
-        int target_x, target_y;
-        int panel_x, panel_y;
+        final int target_x, target_y;
+        final int panel_x, panel_y;
         Display display_wm = getWindowManager().getDefaultDisplay();;
         Point pt_size = new Point();
         ImageView ring_ground = (ImageView)findViewById(R.id.iv_playground);;
@@ -38,6 +42,8 @@ public class Ring_playground extends AppCompatActivity {
         Log.v(TAG, "Size x, y = " + panel_x + ", " + panel_y);
         Log.v(TAG, "Target x, y = " + target_x + ", " + target_y);
 
+        audioPlayer(getResources().openRawResourceFd(R.raw.one));
+        mp.setVolume(1, 1);
         //setting the touch event
         ring_ground.setOnTouchListener(new View.OnTouchListener() {
             @Override
@@ -45,16 +51,20 @@ public class Ring_playground extends AppCompatActivity {
 
                 float x = event.getRawX();
                 float y = event.getRawY();
+                float dis_ratio = 0;
 
                 switch (event.getAction())
                 {
                     case MotionEvent.ACTION_MOVE:
-                        Log.v(TAG, "MOVE = " + x);
-                        Log.v(TAG, "MOVE = " + y);
-                        break;
                     case MotionEvent.ACTION_DOWN:
-                        Log.v(TAG, "DOWN = " + x);
-                        Log.v(TAG, "DOWN = " + y);
+                        x = (float)target_x - x;
+                        y = (float)target_y - y;
+
+                        dis_ratio = (float) (Math.sqrt(x * x + y * y) / Math.sqrt(panel_x * panel_x + panel_y * panel_y));
+                        Log.v(TAG, "DOWN RATIO = " + dis_ratio);
+                        mp.setVolume(dis_ratio, dis_ratio);
+                        if (dis_ratio < 0.1)
+                            mp.stop();
                         break;
                     case MotionEvent.ACTION_UP:
                         Log.v(TAG, "UP = " + x);
@@ -65,5 +75,24 @@ public class Ring_playground extends AppCompatActivity {
                 return true;
             }
         });
+    }
+
+    @Override
+    public void onPause()
+    {
+        super.onPause();
+        mp.stop();
+    }
+
+    public void audioPlayer(AssetFileDescriptor fd)
+    {
+        mp = new MediaPlayer();
+        try {
+            mp.setDataSource(fd);
+            mp.prepare();
+            mp.start();
+        } catch (Exception e){
+            e.printStackTrace();
+        }
     }
 }
