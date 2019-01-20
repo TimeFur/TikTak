@@ -18,7 +18,8 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".Ring_playground"></activity>
+        <activity android:name=".Ring_playground" />
+        <activity android:name=".Clock_list_control"></activity>
     </application>
 
 </manifest>
