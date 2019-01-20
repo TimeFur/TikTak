@@ -44,7 +44,8 @@ public class clock_list_item_adapter extends SimpleAdapter {
         View view = super.getView(position, convertView, parent);
 
         final TextView clock_tv = (TextView) view.findViewById(R.id.item_clock_time);
-        final ToggleButton btn_sun = (ToggleButton) view.findViewById(R.id.Sun);
+        final ToggleButton ring_btn = (ToggleButton) view.findViewById(R.id.Ring_switch_btn);
+        final ToggleButton sunday_btn = (ToggleButton) view.findViewById(R.id.Sun);
 
         clock_tv.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -56,10 +57,10 @@ public class clock_list_item_adapter extends SimpleAdapter {
                 count++;
             }
         });
-        btn_sun.setOnClickListener(new View.OnClickListener() {
+        sunday_btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (btn_sun.isChecked())
+                if (sunday_btn.isChecked())
                     Log.v(TAG, "Toggle btn On");
                 else
                     Log.v(TAG, "Toggle btn Off");

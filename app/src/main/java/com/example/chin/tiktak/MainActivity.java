@@ -44,12 +44,10 @@ public class MainActivity extends AppCompatActivity {
         Map<String, Object> item = new HashMap<String, Object>();
 
         item.put("time", "9:01");
-        item.put("Ring", "Ring");
         clock_data.add(item);
 
         Map<String, Object> item1 = new HashMap<String, Object>();
         item1.put("time", "18:00");
-        item1.put("Ring", "Ring");
         clock_data.add(item1);
 
         SimpleAdapter clock_list_adapter = new clock_list_item_adapter(
@@ -57,7 +55,7 @@ public class MainActivity extends AppCompatActivity {
                 clock_data,
                 R.layout.clock_list_item_layout,
                 new String[] {"time", "Ring"},
-                new int[] {R.id.item_clock_time, R.id.Ring_switch_btn}
+                new int[] {R.id.item_clock_time}
         );
 
         clock_list.setAdapter(clock_list_adapter);
@@ -105,17 +103,4 @@ public class MainActivity extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
 
-    public class clock_list_item_click_function implements android.widget.AdapterView.OnItemClickListener {
-        @Override
-        public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-            Map<String, Object> item = (Map<String, Object>) parent.getItemAtPosition(position);
-            Log.v(TAG, position + "");
-
-            String time = (String)item.get("time");
-            //ToggleButton Ring_btn = (ToggleButton)item.get("Ring");
-
-            //Log.v(TAG, Ring_btn.getWidth() + "");
-            Log.v(TAG, time);
-        }
-    }
 }

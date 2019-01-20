@@ -7,7 +7,7 @@
     android:descendantFocusability="blocksDescendants"
     tools:context="com.example.chin.tiktak.Clock_list_control">
 
-    <TextView
+    <ToggleButton
         android:layout_width="wrap_content"
         android:layout_height="95dp"
         android:text="New ToggleButton"
