@@ -1,5 +1,8 @@
 package com.example.chin.tiktak;
 
+import android.app.AlarmManager;
+import android.app.PendingIntent;
+import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
@@ -19,6 +22,7 @@ import android.widget.TextClock;
 import android.widget.ToggleButton;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -66,8 +70,24 @@ public class MainActivity extends AppCompatActivity {
         ring_btn.setOnClickListener(new Button.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(MainActivity.this, Ring_playground.class);
-                startActivity(intent);
+
+                Log.v(TAG, "Notify~");
+
+                //Setting the clock time
+                Calendar cal = Calendar.getInstance();
+                cal.add(Calendar.SECOND, 3);
+
+                //Setting intent notify
+                Intent intent = new Intent(MainActivity.this, ClockReceiver.class);
+                intent.putExtra("msg", "clock_msg_notify");
+                PendingIntent pi = PendingIntent.getBroadcast(MainActivity.this, 1, intent, PendingIntent.FLAG_ONE_SHOT);
+
+                //Binding cal & intent
+                AlarmManager alarm_mn = (AlarmManager)getSystemService(Context.ALARM_SERVICE);
+                alarm_mn.set(AlarmManager.RTC_WAKEUP, cal.getTimeInMillis(), pi);
+
+//                Intent intent = new Intent(MainActivity.this, Ring_playground.class);
+//                startActivity(intent);
             }
         });
 
