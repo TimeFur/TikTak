@@ -8,10 +8,11 @@
     tools:context="com.example.chin.tiktak.Clock_list_control">
 
     <ToggleButton
-        android:layout_width="wrap_content"
-        android:layout_height="95dp"
-        android:text="New ToggleButton"
-        android:id="@+id/Ring_switch_btn" />
+        android:id="@+id/Ring_switch_btn"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:background="@drawable/clock_btn_bg"
+        android:text="New ToggleButton" />
 
     <LinearLayout
         android:orientation="vertical"
@@ -22,34 +23,35 @@
         android:weightSum="1">
 
         <TextView
-            android:layout_width="205dp"
-            android:layout_height="wrap_content"
             android:id="@+id/item_clock_time"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
             android:layout_weight="0.02" />
 
         <LinearLayout
-            android:orientation="horizontal"
-            android:layout_width="match_parent"
+            android:layout_width="228dp"
             android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
             android:descendantFocusability="blocksDescendants"
-            android:layout_gravity="center_horizontal">
+            android:orientation="horizontal">
 
             <ToggleButton
+                android:id="@+id/Sun"
                 android:layout_width="36dp"
                 android:layout_height="wrap_content"
                 android:text="New ToggleButton"
                 android:textOff=""
-                android:textOn=""
-                android:id="@+id/Sun" />
-            <!--
+                android:textOn="" />
+
             <ToggleButton
+                android:id="@+id/Mon"
                 android:layout_width="36dp"
                 android:layout_height="wrap_content"
                 android:text="New ToggleButton"
                 android:textOff=""
-                android:textOn=""
-                android:id="@+id/Mon" />
+                android:textOn="" />
+
             <ToggleButton
                 android:layout_width="36dp"
                 android:layout_height="wrap_content"
@@ -85,15 +87,15 @@
                 android:textOff=""
                 android:textOn=""
                 android:id="@+id/Sat" />
-                -->
+
         </LinearLayout>
 
 
     </LinearLayout>
 
     <ImageButton
+        android:id="@+id/imageButton"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/imageButton" />
+        android:layout_height="32dp" />
 
 </LinearLayout>
