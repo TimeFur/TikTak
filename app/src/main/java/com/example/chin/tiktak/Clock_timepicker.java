@@ -1,7 +1,10 @@
 package com.example.chin.tiktak;
 
+import android.app.AlarmManager;
+import android.app.PendingIntent;
 import android.app.TimePickerDialog;
 import android.content.Context;
+import android.content.Intent;
 import android.util.Log;
 import android.widget.TimePicker;
 
@@ -38,5 +41,23 @@ public class Clock_timepicker {
         timepicker.show();
 
         return true;
+    }
+
+    static public void notification(Context context)
+    {
+        Log.v(TAG, "Notify~");
+
+        //Setting the clock time
+        Calendar cal = Calendar.getInstance();
+        cal.add(Calendar.SECOND, 3);
+
+        //Setting intent notify
+        Intent intent = new Intent(context, ClockReceiver.class);
+        intent.putExtra("msg", "clock_msg_notify");
+        PendingIntent pi = PendingIntent.getBroadcast(context, 1, intent, PendingIntent.FLAG_ONE_SHOT);
+
+        //Binding cal & intent
+        AlarmManager alarm_mn = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
+        alarm_mn.set(AlarmManager.RTC_WAKEUP, cal.getTimeInMillis(), pi);
     }
 }

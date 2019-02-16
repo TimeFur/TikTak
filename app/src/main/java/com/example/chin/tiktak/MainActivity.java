@@ -33,6 +33,8 @@ import java.util.Map;
 public class MainActivity extends AppCompatActivity {
 
     static String TAG = "MainActivity";
+    List<Map<String, Object>> Clock_data = new ArrayList<Map<String, Object>>();
+    SimpleAdapter Clock_list_adapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -47,26 +49,14 @@ public class MainActivity extends AppCompatActivity {
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
 
         //-----------------------------------setting the list adapter
-        List<Map<String, Object>> clock_data = new ArrayList<Map<String, Object>>();
-        Map<String, Object> item = new HashMap<String, Object>();
-
-        item.put("time", "9:01");
-        clock_data.add(item);
-
-        Map<String, Object> item1 = new HashMap<String, Object>();
-        item1.put("time", "18:00");
-        clock_data.add(item1);
-
-        SimpleAdapter clock_list_adapter = new clock_list_item_adapter(
+        Clock_list_adapter = new clock_list_item_adapter(
                 this,
-                clock_data,
+                Clock_data,
                 R.layout.clock_list_item_layout,
                 new String[] {"time", "Ring"},
                 new int[] {R.id.item_clock_time}
         );
-
-        clock_list.setAdapter(clock_list_adapter);
-//        clock_list.invalidate(); // fresh data
+        clock_list.setAdapter(Clock_list_adapter);
 
         //-----------------------------------setting the trigger ringing button (test)
         Button ring_btn = (Button) findViewById(R.id.trigger_ring_btn);
@@ -74,20 +64,12 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
 
-                Log.v(TAG, "Notify~");
+                Map<String, Object> item1 = new HashMap<String, Object>();
+                item1.put("time", "18:00");
+                Clock_data.add(item1);
+                Clock_list_adapter.notifyDataSetChanged();
 
-                //Setting the clock time
-                Calendar cal = Calendar.getInstance();
-                cal.add(Calendar.SECOND, 3);
-
-                //Setting intent notify
-                Intent intent = new Intent(MainActivity.this, ClockReceiver.class);
-                intent.putExtra("msg", "clock_msg_notify");
-                PendingIntent pi = PendingIntent.getBroadcast(MainActivity.this, 1, intent, PendingIntent.FLAG_ONE_SHOT);
-
-                //Binding cal & intent
-                AlarmManager alarm_mn = (AlarmManager)getSystemService(Context.ALARM_SERVICE);
-                alarm_mn.set(AlarmManager.RTC_WAKEUP, cal.getTimeInMillis(), pi);
+//                Clock_timepicker.notification(MainActivity.this);
 
 //                Intent intent = new Intent(MainActivity.this, Ring_playground.class);
 //                startActivity(intent);

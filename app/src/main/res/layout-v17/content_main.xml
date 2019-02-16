@@ -12,24 +12,10 @@
     tools:context="com.example.chin.tiktak.MainActivity"
     tools:showIn="@layout/activity_main">
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Hello World!"
-        android:id="@+id/tv_title"
-        android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true" />
-
     <TextClock
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/tc_clock_view"
-        android:layout_below="@+id/tv_title"
-        android:autoText="false"
-        android:layout_alignRight="@+id/tv_title"
-        android:layout_alignEnd="@+id/tv_title"
-        android:layout_alignLeft="@+id/tv_title"
-        android:layout_alignStart="@+id/tv_title" />
+        android:id="@+id/tc_clock_view"/>
 
     <ListView
         android:layout_width="wrap_content"

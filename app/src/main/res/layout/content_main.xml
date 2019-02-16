@@ -12,14 +12,6 @@
     tools:context="com.example.chin.tiktak.MainActivity"
     tools:showIn="@layout/activity_main">
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Hello World!"
-        android:id="@+id/tv_title"
-        android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true" />
-
     <TextClock
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
