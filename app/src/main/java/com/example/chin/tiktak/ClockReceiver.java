@@ -15,6 +15,8 @@ public class ClockReceiver extends BroadcastReceiver {
         if (data.get("msg").equals("clock_msg_notify"))
         {
             Log.v(TAG, "Clock Receiver!!!");
+            Intent ring_intent = new Intent(context, Ring_playground.class);
+            context.startActivity(ring_intent);
         }
     }
 }

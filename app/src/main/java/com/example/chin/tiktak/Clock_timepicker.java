@@ -47,7 +47,7 @@ public class Clock_timepicker {
                         clock_list_adapter.notifyDataSetChanged();
 
                         //default open it
-                        notification(context);
+                        notification(context, hourOfDay, minute);
 
                         break;
                     case REVISE_TIME:
@@ -61,13 +61,48 @@ public class Clock_timepicker {
         return true;
     }
 
-    static public void notification(Context context)
+    static public void notification(Context context, int hour, int min)
     {
         Log.v(TAG, "Notify~");
+        int rightnow_hour;
+        int rightnow_min;
+        int rightnow_sec;
+
+        int interval_hour = 0;
+        int interval_min = 0;
+        int counting_sec = 0;
 
         //Setting the clock time
         Calendar cal = Calendar.getInstance();
-        cal.add(Calendar.SECOND, 3);
+        rightnow_hour = cal.get(Calendar.HOUR_OF_DAY);
+        rightnow_min = cal.get(Calendar.MINUTE);
+        rightnow_sec = cal.get(Calendar.SECOND);
+
+        Log.v(TAG, "Current time =" +  rightnow_hour + ":" + rightnow_min + ":" + rightnow_sec);
+        Log.v(TAG, "Setting time =" +  hour + ":" + min + ":00");
+
+        //evaluate the interval hour
+        if (hour > rightnow_hour){
+            interval_hour = hour - rightnow_hour;
+        } else if (hour == rightnow_hour){
+            if (min < rightnow_min)
+                interval_hour = 24 - (rightnow_hour - hour);
+            else
+                interval_hour = hour - rightnow_hour;
+        } else{
+            interval_hour = 24 - (rightnow_hour - hour);
+        }
+        //evaluate the interval minute
+        if (min > rightnow_min)
+            interval_min = min - rightnow_min;
+        else
+            interval_min = 60 - (rightnow_min - min);
+
+        Log.v(TAG, "interval hour =" +  interval_hour);
+        Log.v(TAG, "interval min =" +  interval_min);
+        counting_sec = (interval_hour * 60 * 60) + (interval_min * 60) - rightnow_sec;
+        Log.v(TAG, "=> Counting = " +  counting_sec);
+        cal.add(Calendar.SECOND, counting_sec);
 
         //Setting intent notify
         Intent intent = new Intent(context, ClockReceiver.class);
