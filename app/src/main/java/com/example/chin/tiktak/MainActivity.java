@@ -2,6 +2,7 @@ package com.example.chin.tiktak;
 
 import android.app.AlarmManager;
 import android.app.PendingIntent;
+import android.app.TimePickerDialog;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
@@ -19,6 +20,7 @@ import android.widget.Button;
 import android.widget.ListView;
 import android.widget.SimpleAdapter;
 import android.widget.TextClock;
+import android.widget.TimePicker;
 import android.widget.ToggleButton;
 
 import java.util.ArrayList;
@@ -95,8 +97,21 @@ public class MainActivity extends AppCompatActivity {
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
+                Log.v(TAG, "Add schedule time~");
+                Calendar cal = Calendar.getInstance();
+                int hour = cal.get(Calendar.HOUR_OF_DAY);
+                int min = cal.get(Calendar.MINUTE);
+
+                TimePickerDialog timepicker = new TimePickerDialog(MainActivity.this, new TimePickerDialog.OnTimeSetListener(){
+                    @Override
+                    public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
+                        Log.v(TAG, "Now = " + hourOfDay + ", " + minute );
+                    }
+                }, hour, min, false);
+                timepicker.show();
+
+//                Intent intent = new Intent(MainActivity.this, Clock_TimePick.class);
+//                startActivity(intent);
             }
         });
     }
