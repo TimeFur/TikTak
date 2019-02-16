@@ -11,6 +11,7 @@
         android:id="@+id/Ring_switch_btn"
         android:layout_width="50dp"
         android:layout_height="50dp"
+        android:checked="true"
         android:background="@drawable/clock_btn_bg"
         android:text="New ToggleButton" />
 

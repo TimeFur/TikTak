@@ -80,7 +80,7 @@ public class MainActivity extends AppCompatActivity {
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Clock_timepicker.clock_setting(MainActivity.this, Clock_timepicker.CREATE_TIME);
+                Clock_timepicker.clock_setting(MainActivity.this, Clock_list_adapter, Clock_data,Clock_timepicker.CREATE_TIME);
             }
         });
     }

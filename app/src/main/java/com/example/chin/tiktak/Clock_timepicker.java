@@ -6,9 +6,13 @@ import android.app.TimePickerDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.util.Log;
+import android.widget.SimpleAdapter;
 import android.widget.TimePicker;
 
 import java.util.Calendar;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 public class Clock_timepicker {
 
@@ -16,7 +20,10 @@ public class Clock_timepicker {
     public static final int REVISE_TIME = 1;
     static String TAG = "Clock time picker";
 
-    static public boolean clock_setting(Context context, final int clock_time_flag)
+    static public boolean clock_setting(final Context context,
+                                        final SimpleAdapter clock_list_adapter,
+                                        final List<Map<String, Object>> clock_data,
+                                        final int clock_time_flag)
     {
         Log.v(TAG, "clock_setting method");
         Calendar cal = Calendar.getInstance();
@@ -31,6 +38,17 @@ public class Clock_timepicker {
                 {
                     case CREATE_TIME:
                         Log.v(TAG, "clock_setting create");
+
+                        //create the time clock item
+                        Map<String, Object> item1 = new HashMap<String, Object>();
+                        String t = hourOfDay + ":" + minute;
+                        item1.put("time", t);
+                        clock_data.add(item1);
+                        clock_list_adapter.notifyDataSetChanged();
+
+                        //default open it
+                        notification(context);
+
                         break;
                     case REVISE_TIME:
                         Log.v(TAG, "clock_setting revise");

@@ -36,14 +36,11 @@ public class clock_list_item_adapter extends SimpleAdapter {
      *                 TextViews. The first N views in this list are given the values of the first N columns
      */
 
-
-
     public clock_list_item_adapter(Context context, List<? extends Map<String, ?>> data, int resource, String[] from, int[] to) {
         super(context, data, resource, from, to);
         main_context = context;
         Log.v(TAG, "My Adapter");
     }
-
 
     @Override
     public View getView(int position, View convertView, ViewGroup parent){
@@ -55,13 +52,17 @@ public class clock_list_item_adapter extends SimpleAdapter {
         final ToggleButton ring_btn = (ToggleButton) view.findViewById(R.id.Ring_switch_btn);
         final ToggleButton sunday_btn = (ToggleButton) view.findViewById(R.id.Sun);
 
+        ring_btn.setText(null);
+        ring_btn.setTextOn(null);
+        ring_btn.setTextOff(null);
+
         clock_tv.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 String clock_str = clock_tv.getText().toString();
                 Log.v(TAG, "Click clock" + clock_str);
 
-                Clock_timepicker.clock_setting(main_context, Clock_timepicker.REVISE_TIME);
+                Clock_timepicker.clock_setting(main_context,null, null, Clock_timepicker.REVISE_TIME);
 
                 clock_tv.setText(count + "");
                 count++;
