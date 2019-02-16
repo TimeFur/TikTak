@@ -1,5 +1,6 @@
 package com.example.chin.tiktak;
 
+import android.app.TimePickerDialog;
 import android.content.Context;
 import android.util.Log;
 import android.view.View;
@@ -7,14 +8,17 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.SimpleAdapter;
 import android.widget.TextView;
+import android.widget.TimePicker;
 import android.widget.ToggleButton;
 
+import java.util.Calendar;
 import java.util.List;
 import java.util.Map;
 
 public class clock_list_item_adapter extends SimpleAdapter {
 
     String TAG = "clock_list_item";
+    Context main_context;
     int count = 0;
 
     /**
@@ -31,8 +35,12 @@ public class clock_list_item_adapter extends SimpleAdapter {
      * @param to       The views that should display column in the "from" parameter. These should all be
      *                 TextViews. The first N views in this list are given the values of the first N columns
      */
+
+
+
     public clock_list_item_adapter(Context context, List<? extends Map<String, ?>> data, int resource, String[] from, int[] to) {
         super(context, data, resource, from, to);
+        main_context = context;
         Log.v(TAG, "My Adapter");
     }
 
@@ -52,6 +60,8 @@ public class clock_list_item_adapter extends SimpleAdapter {
             public void onClick(View v) {
                 String clock_str = clock_tv.getText().toString();
                 Log.v(TAG, "Click clock" + clock_str);
+
+                Clock_timepicker.clock_setting(main_context, Clock_timepicker.REVISE_TIME);
 
                 clock_tv.setText(count + "");
                 count++;

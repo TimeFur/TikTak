@@ -7,6 +7,7 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.annotation.IntDef;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
@@ -31,8 +32,8 @@ import java.util.Map;
 
 public class MainActivity extends AppCompatActivity {
 
-    String TAG = "MainActivity";
-    int count = 0;
+    static String TAG = "MainActivity";
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -97,21 +98,7 @@ public class MainActivity extends AppCompatActivity {
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Log.v(TAG, "Add schedule time~");
-                Calendar cal = Calendar.getInstance();
-                int hour = cal.get(Calendar.HOUR_OF_DAY);
-                int min = cal.get(Calendar.MINUTE);
-
-                TimePickerDialog timepicker = new TimePickerDialog(MainActivity.this, new TimePickerDialog.OnTimeSetListener(){
-                    @Override
-                    public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
-                        Log.v(TAG, "Now = " + hourOfDay + ", " + minute );
-                    }
-                }, hour, min, false);
-                timepicker.show();
-
-//                Intent intent = new Intent(MainActivity.this, Clock_TimePick.class);
-//                startActivity(intent);
+                Clock_timepicker.clock_setting(MainActivity.this, Clock_timepicker.CREATE_TIME);
             }
         });
     }
