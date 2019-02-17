@@ -42,7 +42,7 @@ public class Clock_timepicker {
                         //create the time clock item
                         Map<String, Object> item1 = new HashMap<String, Object>();
                         String t = hourOfDay + ":" + minute;
-                        item1.put("time", t);
+                        item1.put("TIME", t);
                         clock_data.add(item1);
                         clock_list_adapter.notifyDataSetChanged();
 

@@ -35,6 +35,7 @@ public class MainActivity extends AppCompatActivity {
     static String TAG = "MainActivity";
     List<Map<String, Object>> Clock_data = new ArrayList<Map<String, Object>>();
     SimpleAdapter Clock_list_adapter;
+    DB_machine DB_machine;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -47,16 +48,34 @@ public class MainActivity extends AppCompatActivity {
         TextClock title_tc = (TextClock) findViewById(R.id.tc_clock_view);
         final ListView clock_list = (ListView) findViewById(R.id.lv_clock_list);
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
+        DB_machine = new DB_machine(MainActivity.this);
 
         //-----------------------------------setting the list adapter
         Clock_list_adapter = new clock_list_item_adapter(
                 this,
                 Clock_data,
                 R.layout.clock_list_item_layout,
-                new String[] {"time", "Ring"},
+                new String[] {  DB_machine.TIME_COLUMN,
+                        DB_machine.RING_COLUMN,
+                        DB_machine.SUN_COLUMN,
+                        DB_machine.MON_COLUMN,
+                        DB_machine.TUE_COLUMN,
+                        DB_machine.WED_COLUMN,
+                        DB_machine.THR_COLUMN,
+                        DB_machine.FRI_COLUMN,
+                        DB_machine.SAT_COLUMN,
+                        DB_machine.MUSIC_COLUMN,},
                 new int[] {R.id.item_clock_time}
         );
         clock_list.setAdapter(Clock_list_adapter);
+
+        //-----------------------------------add list click event
+        fab.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Clock_timepicker.clock_setting(MainActivity.this, Clock_list_adapter, Clock_data,Clock_timepicker.CREATE_TIME);
+            }
+        });
 
         //-----------------------------------setting the trigger ringing button (test)
         Button ring_btn = (Button) findViewById(R.id.trigger_ring_btn);
@@ -65,22 +84,16 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View v) {
 
                 Map<String, Object> item1 = new HashMap<String, Object>();
-                item1.put("time", "18:00");
+                item1.put("TIME", "18:00");
                 Clock_data.add(item1);
                 Clock_list_adapter.notifyDataSetChanged();
+
+                DB_machine.insertitem(item1);
 
 //                Clock_timepicker.notification(MainActivity.this);
 
 //                Intent intent = new Intent(MainActivity.this, Ring_playground.class);
 //                startActivity(intent);
-            }
-        });
-
-        //-----------------------------------add list click event
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Clock_timepicker.clock_setting(MainActivity.this, Clock_list_adapter, Clock_data,Clock_timepicker.CREATE_TIME);
             }
         });
     }
