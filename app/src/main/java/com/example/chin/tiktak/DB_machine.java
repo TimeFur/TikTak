@@ -15,7 +15,7 @@ public class DB_machine {
 
     private static final String TAG = "DB_MACHINE";
 
-    public static final String TABLE_NAME = "clock_item";
+    public static final String TABLE_NAME = "CLOCK_ITEM";
 
     public static final String KEY_ID         = "_id";
     public static final String TIME_COLUMN  = "TIME";
@@ -30,20 +30,20 @@ public class DB_machine {
     public static final String MUSIC_COLUMN   = "MUSIC";
 
     public static final String CREATE_TABLE =
-            "CREATE TABLE " + TABLE_NAME + " (" +
+            "CREATE TABLE " + TABLE_NAME + " ( " +
                     KEY_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " +
                     TIME_COLUMN + " TEXT NOT NULL, " +
-                    RING_COLUMN + " INTEGER DEFAULT 1, " +
+                    RING_COLUMN + " TEXT NOT NULL, " +
                     SUN_COLUMN + " INTEGER DEFAULT 1, " +
                     MON_COLUMN + " INTEGER DEFAULT 1, " +
                     TUE_COLUMN + " INTEGER DEFAULT 1, " +
                     WED_COLUMN + " INTEGER DEFAULT 1, " +
                     THR_COLUMN + " INTEGER DEFAULT 1, " +
                     FRI_COLUMN + " INTEGER DEFAULT 1, " +
-                    SAT_COLUMN + "  INTEGER DEFAULT 1 " +
-                    MUSIC_COLUMN + "  TEXT NOT NULL " + ")";
+                    SAT_COLUMN + "  INTEGER DEFAULT 1, " +
+                    MUSIC_COLUMN + "  TEXT " + ")";
 
-    private SQLiteDatabase DB_instance = null;
+    static private SQLiteDatabase DB_instance = null;
 
     public DB_machine(Context context)
     {
@@ -58,15 +58,15 @@ public class DB_machine {
     }
 
     //Insert clock item
-    public void insertitem(Map<String, Object> item)
+    public static void insertitem(Map<String, Object> item)
     {
         long id = -1;
         ContentValues cv = new ContentValues();
 
         //put the info in cv
         cv.put(TIME_COLUMN, item.get(TIME_COLUMN).toString());
-//        cv.put(RING_COLUMN, item.get(RING_COLUMN).toString());
-//        cv.put(SUN_COLUMN, item.get(SUN_COLUMN).toString());
+        cv.put(RING_COLUMN, item.get(RING_COLUMN).toString());
+        cv.put(SUN_COLUMN, item.get(SUN_COLUMN).toString());
 //        cv.put(MON_COLUMN, item.get(MON_COLUMN).toString());
 //        cv.put(TUE_COLUMN, item.get(TUE_COLUMN).toString());
 //        cv.put(WED_COLUMN, item.get(WED_COLUMN).toString());
@@ -128,4 +128,9 @@ public class DB_machine {
         return true;
     }
 
+    //delete
+    public void delete_DB(Context context)
+    {
+        Database.delete_DB(context);
+    }
 }

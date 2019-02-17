@@ -3,10 +3,12 @@ package com.example.chin.tiktak;
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
+import android.util.Log;
 
 public class Database extends SQLiteOpenHelper {
 
-    public static final String DB_NAME = "DB_CLOCK_INFO";
+    private static String TAG = "DATABASE_HELPER";
+    public static final String DB_NAME = "DB_CLOCK";
     public static final int DB_VERSION = 1;
     private static SQLiteDatabase Database_instance;
 
@@ -25,13 +27,24 @@ public class Database extends SQLiteOpenHelper {
         onCreate(db);
     }
 
+
     public static SQLiteDatabase getDatabase_instance(Context context)
     {
         if (Database_instance == null)
         {
+            Log.v(TAG, "Create!");
             Database_instance = new Database(context, DB_NAME,null, DB_VERSION).getWritableDatabase();
+        }
+        else
+        {
+            Log.v(TAG, "Already Create!");
         }
 
         return Database_instance;
+    }
+
+    public static void delete_DB(Context context)
+    {
+        context.deleteDatabase(DB_NAME);
     }
 }

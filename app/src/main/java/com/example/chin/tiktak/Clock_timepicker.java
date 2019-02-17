@@ -20,6 +20,8 @@ public class Clock_timepicker {
     public static final int REVISE_TIME = 1;
     static String TAG = "Clock time picker";
 
+    static DB_machine DB_machine;
+
     static public boolean clock_setting(final Context context,
                                         final SimpleAdapter clock_list_adapter,
                                         final List<Map<String, Object>> clock_data,
@@ -40,11 +42,22 @@ public class Clock_timepicker {
                         Log.v(TAG, "clock_setting create");
 
                         //create the time clock item
-                        Map<String, Object> item1 = new HashMap<String, Object>();
-                        String t = hourOfDay + ":" + minute;
-                        item1.put("TIME", t);
-                        clock_data.add(item1);
+                        String time = hourOfDay + ":" + minute;
+
+                        Map<String, Object> item = new HashMap<String, Object>();
+                        item.put(DB_machine.TIME_COLUMN, time);
+                        item.put(DB_machine.RING_COLUMN, "TRUE");
+                        item.put(DB_machine.SUN_COLUMN, "TRUE");
+                        item.put(DB_machine.MON_COLUMN, "TRUE");
+                        item.put(DB_machine.FRI_COLUMN, "TRUE");
+                        item.put(DB_machine.WED_COLUMN, "TRUE");
+                        item.put(DB_machine.THR_COLUMN, "TRUE");
+                        item.put(DB_machine.FRI_COLUMN, "TRUE");
+                        item.put(DB_machine.SAT_COLUMN, "TRUE");
+                        item.put(DB_machine.MUSIC_COLUMN, "/raw/song1.mp3");
+                        clock_data.add(item);
                         clock_list_adapter.notifyDataSetChanged();
+                        DB_machine.insertitem(item);
 
                         //default open it
                         notification(context, hourOfDay, minute);

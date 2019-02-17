@@ -27,6 +27,7 @@ import android.widget.ToggleButton;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
@@ -65,7 +66,8 @@ public class MainActivity extends AppCompatActivity {
                         DB_machine.FRI_COLUMN,
                         DB_machine.SAT_COLUMN,
                         DB_machine.MUSIC_COLUMN,},
-                new int[] {R.id.item_clock_time}
+                new int[] {R.id.item_clock_time,
+                            R.id.Ring_switch_btn}
         );
         clock_list.setAdapter(Clock_list_adapter);
 
@@ -83,13 +85,16 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
 
-                Map<String, Object> item1 = new HashMap<String, Object>();
-                item1.put("TIME", "18:00");
-                Clock_data.add(item1);
-                Clock_list_adapter.notifyDataSetChanged();
+                List<Map<String, Object>> getitem;
+                getitem = DB_machine.getAll();
+                Iterator it = getitem.iterator();
+                while (it.hasNext())
+                {
+                    Object obj = it.next();
+                    Log.v(TAG, obj.toString());
+                }
 
-                DB_machine.insertitem(item1);
-
+                DB_machine.delete_DB(MainActivity.this);
 //                Clock_timepicker.notification(MainActivity.this);
 
 //                Intent intent = new Intent(MainActivity.this, Ring_playground.class);
