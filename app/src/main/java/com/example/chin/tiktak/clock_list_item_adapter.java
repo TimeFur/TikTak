@@ -57,6 +57,12 @@ public class clock_list_item_adapter extends SimpleAdapter {
 
         final TextView clock_tv = (TextView) view.findViewById(R.id.item_clock_time);
         final ToggleButton ring_btn = (ToggleButton) view.findViewById(R.id.Ring_switch_btn);
+        final ToggleButton monday_btn = (ToggleButton) view.findViewById(R.id.Mon);
+        final ToggleButton tuesday_btn = (ToggleButton) view.findViewById(R.id.Tue);
+        final ToggleButton wednesday_btn = (ToggleButton) view.findViewById(R.id.Wed);
+        final ToggleButton thursday_btn = (ToggleButton) view.findViewById(R.id.Thr);
+        final ToggleButton friday_btn = (ToggleButton) view.findViewById(R.id.Fri);
+        final ToggleButton saturday_btn = (ToggleButton) view.findViewById(R.id.Sat);
         final ToggleButton sunday_btn = (ToggleButton) view.findViewById(R.id.Sun);
 
         ring_btn.setText(null);
@@ -68,8 +74,8 @@ public class clock_list_item_adapter extends SimpleAdapter {
         ring_btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                Map<String, Object> item;
                 Log.v(TAG, "SQLITE ID = " + sqlite_id);
-                Map<String, Object> item = db_machine.get_sqldata(sqlite_id);
 
                 if (ring_btn.isChecked())
                 {
@@ -82,6 +88,7 @@ public class clock_list_item_adapter extends SimpleAdapter {
                     db_machine.update(sqlite_id, DB_machine.RING_COLUMN, "FALSE");
                 }
 
+                item = db_machine.get_sqldata(sqlite_id);
                 Log.v(TAG, item.toString());
             }
         });
@@ -98,16 +105,113 @@ public class clock_list_item_adapter extends SimpleAdapter {
                 count++;
             }
         });
+
+        monday_btn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (monday_btn.isChecked())
+                {
+                    Log.v(TAG, "Mon Toggle btn On");
+                    db_machine.update(sqlite_id, DB_machine.MON_COLUMN, "TRUE");
+                }
+                else
+                {
+                    db_machine.update(sqlite_id, DB_machine.MON_COLUMN, "FALSE");
+                    Log.v(TAG, "Mon Toggle btn Off");
+                }
+            }
+        });
+        tuesday_btn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (tuesday_btn.isChecked())
+                {
+                    Log.v(TAG, "Tue Toggle btn On");
+                    db_machine.update(sqlite_id, DB_machine.TUE_COLUMN, "TRUE");
+                }
+                else
+                {
+                    Log.v(TAG, "Tue Toggle btn Off");
+                    db_machine.update(sqlite_id, DB_machine.TUE_COLUMN, "FALSE");
+                }
+            }
+        });
+        wednesday_btn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (wednesday_btn.isChecked())
+                {
+                    Log.v(TAG, "Wed Toggle btn On");
+                    db_machine.update(sqlite_id, DB_machine.WED_COLUMN, "TRUE");
+                }
+                else
+                {
+                    Log.v(TAG, "Wed Toggle btn Off");
+                    db_machine.update(sqlite_id, DB_machine.WED_COLUMN, "FALSE");
+                }
+            }
+        });
+        thursday_btn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (thursday_btn.isChecked())
+                {
+                    Log.v(TAG, "Thr Toggle btn On");
+                    db_machine.update(sqlite_id, DB_machine.THR_COLUMN, "TRUE");
+                }
+                else
+                {
+                    Log.v(TAG, "Thr Toggle btn Off");
+                    db_machine.update(sqlite_id, DB_machine.THR_COLUMN, "FALSE");
+                }
+
+            }
+        });
+        friday_btn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (friday_btn.isChecked())
+                {
+                    Log.v(TAG, "Fri Toggle btn On");
+                    db_machine.update(sqlite_id, DB_machine.FRI_COLUMN, "TRUE");
+                }
+                else
+                {
+                    Log.v(TAG, "Fri Toggle btn Off");
+                    db_machine.update(sqlite_id, DB_machine.FRI_COLUMN, "FALSE");
+                }
+            }
+        });
+        saturday_btn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (saturday_btn.isChecked())
+                {
+                    Log.v(TAG, "Sat Toggle btn On");
+                    db_machine.update(sqlite_id, DB_machine.SAT_COLUMN, "TRUE");
+                }
+                else
+                {
+                    Log.v(TAG, "Sat Toggle btn Off");
+                    db_machine.update(sqlite_id, DB_machine.SAT_COLUMN, "FALSE");
+                }
+            }
+        });
         sunday_btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 if (sunday_btn.isChecked())
-                    Log.v(TAG, "Toggle btn On");
+                {
+                    Log.v(TAG, "Sun Toggle btn On");
+                    db_machine.update(sqlite_id, DB_machine.SUN_COLUMN, "TRUE");
+                }
                 else
-                    Log.v(TAG, "Toggle btn Off");
+                {
+                    Log.v(TAG, "Sun Toggle btn Off");
+                    db_machine.update(sqlite_id, DB_machine.SUN_COLUMN, "FALSE");
+                }
             }
         });
-
 
         return view;
     }
