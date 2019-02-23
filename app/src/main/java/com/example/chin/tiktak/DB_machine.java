@@ -34,13 +34,13 @@ public class DB_machine {
                     KEY_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " +
                     TIME_COLUMN + " TEXT NOT NULL, " +
                     RING_COLUMN + " TEXT NOT NULL, " +
-                    SUN_COLUMN + " INTEGER DEFAULT 1, " +
-                    MON_COLUMN + " INTEGER DEFAULT 1, " +
-                    TUE_COLUMN + " INTEGER DEFAULT 1, " +
-                    WED_COLUMN + " INTEGER DEFAULT 1, " +
-                    THR_COLUMN + " INTEGER DEFAULT 1, " +
-                    FRI_COLUMN + " INTEGER DEFAULT 1, " +
-                    SAT_COLUMN + "  INTEGER DEFAULT 1, " +
+                    SUN_COLUMN + " TEXT NOT NULL, " +
+                    MON_COLUMN + " TEXT NOT NULL, " +
+                    TUE_COLUMN + " TEXT NOT NULL, " +
+                    WED_COLUMN + " TEXT NOT NULL, " +
+                    THR_COLUMN + " TEXT NOT NULL,  " +
+                    FRI_COLUMN + " TEXT NOT NULL, " +
+                    SAT_COLUMN + "  TEXT NOT NULL,  " +
                     MUSIC_COLUMN + "  TEXT " + ")";
 
     static private SQLiteDatabase DB_instance = null;
@@ -67,17 +67,18 @@ public class DB_machine {
         cv.put(TIME_COLUMN, item.get(TIME_COLUMN).toString());
         cv.put(RING_COLUMN, item.get(RING_COLUMN).toString());
         cv.put(SUN_COLUMN, item.get(SUN_COLUMN).toString());
-//        cv.put(MON_COLUMN, item.get(MON_COLUMN).toString());
-//        cv.put(TUE_COLUMN, item.get(TUE_COLUMN).toString());
-//        cv.put(WED_COLUMN, item.get(WED_COLUMN).toString());
-//        cv.put(THR_COLUMN, item.get(THR_COLUMN).toString());
-//        cv.put(FRI_COLUMN, item.get(FRI_COLUMN).toString());
-//        cv.put(SAT_COLUMN, item.get(SAT_COLUMN).toString());
-//        cv.put(MUSIC_COLUMN, item.get(MUSIC_COLUMN).toString());
+        cv.put(MON_COLUMN, item.get(MON_COLUMN).toString());
+        cv.put(TUE_COLUMN, item.get(TUE_COLUMN).toString());
+        cv.put(WED_COLUMN, item.get(WED_COLUMN).toString());
+        cv.put(THR_COLUMN, item.get(THR_COLUMN).toString());
+        cv.put(FRI_COLUMN, item.get(FRI_COLUMN).toString());
+        cv.put(SAT_COLUMN, item.get(SAT_COLUMN).toString());
+        cv.put(MUSIC_COLUMN, item.get(MUSIC_COLUMN).toString());
 
-        Log.v(TAG, "Insert item");
         //Insert to table in DB
         id = DB_instance.insert(TABLE_NAME, null, cv);
+        Log.v(TAG, "Insert item = " + id);
+
         item.put(KEY_ID, id);
     }
 
@@ -92,6 +93,22 @@ public class DB_machine {
         }
 
         cursor.close();
+        return result;
+    }
+    public List<Map<String, Object>> get_sqldata(long id)
+    {
+        List<Map<String, Object>> result = new ArrayList<>();
+        String where = KEY_ID + "=" + id;
+
+        //search this id sqlite data
+        Cursor cursor = DB_instance.query(
+                TABLE_NAME, null, where, null, null, null, null, null);
+        //
+        if (cursor.moveToFirst()) {
+            result.add(getRecord(cursor));
+        }
+        cursor.close();
+
         return result;
     }
 
@@ -132,5 +149,11 @@ public class DB_machine {
     public void delete_DB(Context context)
     {
         Database.delete_DB(context);
+    }
+
+    //
+    public void log_test()
+    {
+        Log.v(TAG, "Test");
     }
 }

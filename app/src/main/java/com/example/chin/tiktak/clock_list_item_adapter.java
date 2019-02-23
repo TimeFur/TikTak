@@ -11,7 +11,9 @@ import android.widget.TextView;
 import android.widget.TimePicker;
 import android.widget.ToggleButton;
 
+import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
@@ -19,6 +21,7 @@ public class clock_list_item_adapter extends SimpleAdapter {
 
     String TAG = "clock_list_item";
     Context main_context;
+    static DB_machine db_machine;
     int count = 0;
 
     /**
@@ -39,14 +42,18 @@ public class clock_list_item_adapter extends SimpleAdapter {
     public clock_list_item_adapter(Context context, List<? extends Map<String, ?>> data, int resource, String[] from, int[] to) {
         super(context, data, resource, from, to);
         main_context = context;
+        db_machine = new DB_machine(main_context);
+
         Log.v(TAG, "My Adapter");
     }
 
     @Override
     public View getView(int position, View convertView, ViewGroup parent){
-        Log.v(TAG, "Get View" + position);
-
         View view = super.getView(position, convertView, parent);
+
+        final Map<String, Object> Clock_data = (Map<String, Object>) getItem(position);
+        final long sqlite_id = (long) Clock_data.get(DB_machine.KEY_ID);
+        final List<Map<String, Object>> getitem = db_machine.get_sqldata(sqlite_id);
 
         final TextView clock_tv = (TextView) view.findViewById(R.id.item_clock_time);
         final ToggleButton ring_btn = (ToggleButton) view.findViewById(R.id.Ring_switch_btn);
@@ -55,6 +62,33 @@ public class clock_list_item_adapter extends SimpleAdapter {
         ring_btn.setText(null);
         ring_btn.setTextOn(null);
         ring_btn.setTextOff(null);
+        Log.v(TAG, "Get View" + position);
+        Log.v(TAG, "Get sqlite data id = " + sqlite_id);
+
+        ring_btn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Log.v(TAG, "SQLITE ID = " + sqlite_id);
+
+                //get info
+                Iterator it;
+                it = getitem.iterator();
+                while (it.hasNext())
+                {
+                    Object obj = it.next();
+                    Log.v(TAG, obj.toString());
+                }
+
+                if (ring_btn.isChecked())
+                {
+                    Log.v(TAG, "RING On");
+                }
+                else
+                {
+                    Log.v(TAG, "RING Off");
+                }
+            }
+        });
 
         clock_tv.setOnClickListener(new View.OnClickListener() {
             @Override

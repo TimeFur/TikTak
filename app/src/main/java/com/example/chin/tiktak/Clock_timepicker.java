@@ -49,16 +49,18 @@ public class Clock_timepicker {
                         item.put(DB_machine.RING_COLUMN, "TRUE");
                         item.put(DB_machine.SUN_COLUMN, "TRUE");
                         item.put(DB_machine.MON_COLUMN, "TRUE");
+                        item.put(DB_machine.TUE_COLUMN, "TRUE");
                         item.put(DB_machine.FRI_COLUMN, "TRUE");
                         item.put(DB_machine.WED_COLUMN, "TRUE");
                         item.put(DB_machine.THR_COLUMN, "TRUE");
                         item.put(DB_machine.FRI_COLUMN, "TRUE");
                         item.put(DB_machine.SAT_COLUMN, "TRUE");
                         item.put(DB_machine.MUSIC_COLUMN, "/raw/song1.mp3");
+
                         clock_data.add(item);
                         clock_list_adapter.notifyDataSetChanged();
-                        DB_machine.insertitem(item);
 
+                        DB_machine.insertitem(item);
                         //default open it
                         notification(context, hourOfDay, minute);
 

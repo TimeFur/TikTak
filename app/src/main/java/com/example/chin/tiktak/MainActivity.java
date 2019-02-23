@@ -65,7 +65,8 @@ public class MainActivity extends AppCompatActivity {
                         DB_machine.THR_COLUMN,
                         DB_machine.FRI_COLUMN,
                         DB_machine.SAT_COLUMN,
-                        DB_machine.MUSIC_COLUMN,},
+                        DB_machine.MUSIC_COLUMN,
+                        DB_machine.KEY_ID,},
                 new int[] {R.id.item_clock_time,
                             R.id.Ring_switch_btn}
         );
@@ -86,15 +87,25 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View v) {
 
                 List<Map<String, Object>> getitem;
+                Iterator it;
                 getitem = DB_machine.getAll();
-                Iterator it = getitem.iterator();
+                it = getitem.iterator();
                 while (it.hasNext())
                 {
                     Object obj = it.next();
                     Log.v(TAG, obj.toString());
                 }
+//                Log.v(TAG, "------------------------------------");
+//                getitem = DB_machine.get_sqldata(8);
+//                it = getitem.iterator();
+//                while (it.hasNext())
+//                {
+//                    Object obj = it.next();
+//                    Log.v(TAG, obj.toString());
+//                }
 
                 DB_machine.delete_DB(MainActivity.this);
+
 //                Clock_timepicker.notification(MainActivity.this);
 
 //                Intent intent = new Intent(MainActivity.this, Ring_playground.class);
