@@ -99,8 +99,7 @@ public class MainActivity extends AppCompatActivity {
 
                 Map<String, Object> item = (Map<String, Object>) DB_machine.get_sqldata(1);
                 Log.v(TAG, item.toString());
-
-//                DB_machine.update(getitem, DB_machine.RING_COLUMN, "FALSE");
+                DB_machine.update(1, DB_machine.RING_COLUMN, "FALSE");
 
 //                Log.v(TAG, "------------------------------------");
 //                getitem = DB_machine.get_sqldata(8);
@@ -111,7 +110,7 @@ public class MainActivity extends AppCompatActivity {
 //                    Log.v(TAG, obj.toString());
 //                }
 
-//                DB_machine.delete_DB(MainActivity.this);
+                DB_machine.delete_DB(MainActivity.this);
 
 //                Clock_timepicker.notification(MainActivity.this);
 

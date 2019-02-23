@@ -69,24 +69,20 @@ public class clock_list_item_adapter extends SimpleAdapter {
             @Override
             public void onClick(View v) {
                 Log.v(TAG, "SQLITE ID = " + sqlite_id);
-                Log.v(TAG, getitem.toString());
-                //get info
-//                Iterator it;
-//                it = getitem.iterator();
-//                while (it.hasNext())
-//                {
-//                    Object obj = it.next();
-//                    Log.v(TAG, obj.toString());
-//                }
+                Map<String, Object> item = db_machine.get_sqldata(sqlite_id);
 
                 if (ring_btn.isChecked())
                 {
                     Log.v(TAG, "RING On");
+                    db_machine.update(sqlite_id, DB_machine.RING_COLUMN, "TRUE");
                 }
                 else
                 {
                     Log.v(TAG, "RING Off");
+                    db_machine.update(sqlite_id, DB_machine.RING_COLUMN, "FALSE");
                 }
+
+                Log.v(TAG, item.toString());
             }
         });
 

@@ -132,18 +132,17 @@ public class DB_machine {
     }
 
     //Insert clock item
-    public boolean update(Map<String, Object> item, String column, String data)
+    public boolean update(long id, String column, String data)
     {
-        long id = (long) item.get(KEY_ID);
         ContentValues cv = new ContentValues();
 
         //put the info in cv
         cv.put(column, data);
 
         //Insert to table in DB
-        String where = KEY_ID + "=" + item.get("id");
+        String where = KEY_ID + "=" + id;
 
-        return true;
+        return DB_instance.update(TABLE_NAME, cv, where, null) > 0;
     }
 
     //delete
