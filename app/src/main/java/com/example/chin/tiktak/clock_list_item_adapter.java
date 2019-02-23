@@ -53,7 +53,7 @@ public class clock_list_item_adapter extends SimpleAdapter {
 
         final Map<String, Object> Clock_data = (Map<String, Object>) getItem(position);
         final long sqlite_id = (long) Clock_data.get(DB_machine.KEY_ID);
-        final List<Map<String, Object>> getitem = db_machine.get_sqldata(sqlite_id);
+        final Map<String, Object> getitem = db_machine.get_sqldata(sqlite_id);
 
         final TextView clock_tv = (TextView) view.findViewById(R.id.item_clock_time);
         final ToggleButton ring_btn = (ToggleButton) view.findViewById(R.id.Ring_switch_btn);
@@ -69,15 +69,15 @@ public class clock_list_item_adapter extends SimpleAdapter {
             @Override
             public void onClick(View v) {
                 Log.v(TAG, "SQLITE ID = " + sqlite_id);
-
+                Log.v(TAG, getitem.toString());
                 //get info
-                Iterator it;
-                it = getitem.iterator();
-                while (it.hasNext())
-                {
-                    Object obj = it.next();
-                    Log.v(TAG, obj.toString());
-                }
+//                Iterator it;
+//                it = getitem.iterator();
+//                while (it.hasNext())
+//                {
+//                    Object obj = it.next();
+//                    Log.v(TAG, obj.toString());
+//                }
 
                 if (ring_btn.isChecked())
                 {

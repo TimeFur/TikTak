@@ -95,17 +95,18 @@ public class DB_machine {
         cursor.close();
         return result;
     }
-    public List<Map<String, Object>> get_sqldata(long id)
+
+    public Map<String, Object> get_sqldata(long id)
     {
-        List<Map<String, Object>> result = new ArrayList<>();
+        Map<String, Object> result = new HashMap<String, Object>();
         String where = KEY_ID + "=" + id;
 
         //search this id sqlite data
         Cursor cursor = DB_instance.query(
                 TABLE_NAME, null, where, null, null, null, null, null);
-        //
+        //retrieve data
         if (cursor.moveToFirst()) {
-            result.add(getRecord(cursor));
+            result = getRecord(cursor);
         }
         cursor.close();
 
@@ -131,15 +132,15 @@ public class DB_machine {
     }
 
     //Insert clock item
-    public boolean update(Map<String, Object> item)
+    public boolean update(Map<String, Object> item, String column, String data)
     {
-        long id = -1;
+        long id = (long) item.get(KEY_ID);
         ContentValues cv = new ContentValues();
 
         //put the info in cv
+        cv.put(column, data);
 
         //Insert to table in DB
-        id = DB_instance.insert(TABLE_NAME, null, cv);
         String where = KEY_ID + "=" + item.get("id");
 
         return true;
@@ -149,11 +150,5 @@ public class DB_machine {
     public void delete_DB(Context context)
     {
         Database.delete_DB(context);
-    }
-
-    //
-    public void log_test()
-    {
-        Log.v(TAG, "Test");
     }
 }

@@ -86,15 +86,22 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
 
-                List<Map<String, Object>> getitem;
-                Iterator it;
-                getitem = DB_machine.getAll();
-                it = getitem.iterator();
-                while (it.hasNext())
-                {
-                    Object obj = it.next();
-                    Log.v(TAG, obj.toString());
-                }
+//                List<Map<String, Object>> getitem;
+//                Iterator it;
+//                getitem = DB_machine.getAll();
+//                it = getitem.iterator();
+//
+//                while (it.hasNext())
+//                {
+//                    Object obj = it.next();
+//                    Log.v(TAG, obj.toString());
+//                }
+
+                Map<String, Object> item = (Map<String, Object>) DB_machine.get_sqldata(1);
+                Log.v(TAG, item.toString());
+
+//                DB_machine.update(getitem, DB_machine.RING_COLUMN, "FALSE");
+
 //                Log.v(TAG, "------------------------------------");
 //                getitem = DB_machine.get_sqldata(8);
 //                it = getitem.iterator();
@@ -104,7 +111,7 @@ public class MainActivity extends AppCompatActivity {
 //                    Log.v(TAG, obj.toString());
 //                }
 
-                DB_machine.delete_DB(MainActivity.this);
+//                DB_machine.delete_DB(MainActivity.this);
 
 //                Clock_timepicker.notification(MainActivity.this);
 
