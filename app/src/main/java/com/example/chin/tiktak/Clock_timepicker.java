@@ -61,8 +61,9 @@ public class Clock_timepicker {
                         clock_list_adapter.notifyDataSetChanged();
 
                         DB_machine.insertitem(item);
+
                         //default open it
-                        notification(context, hourOfDay, minute);
+                        notification(context, hourOfDay, minute, item.get(DB_machine.KEY_ID).toString());
 
                         break;
                     case REVISE_TIME:
@@ -76,56 +77,25 @@ public class Clock_timepicker {
         return true;
     }
 
-    static public void notification(Context context, int hour, int min)
+    static public void notification(Context context, int hour, int min, String sqlite_id)
     {
-        Log.v(TAG, "Notify~");
-        int rightnow_hour;
-        int rightnow_min;
-        int rightnow_sec;
-
-        int interval_hour = 0;
-        int interval_min = 0;
-        int counting_sec = 0;
+        int _id = (int) System.currentTimeMillis();
 
         //Setting the clock time
         Calendar cal = Calendar.getInstance();
-        rightnow_hour = cal.get(Calendar.HOUR_OF_DAY);
-        rightnow_min = cal.get(Calendar.MINUTE);
-        rightnow_sec = cal.get(Calendar.SECOND);
-
-        Log.v(TAG, "Current time =" +  rightnow_hour + ":" + rightnow_min + ":" + rightnow_sec);
-        Log.v(TAG, "Setting time =" +  hour + ":" + min + ":00");
-
-        //evaluate the interval hour
-        if (hour > rightnow_hour){
-            interval_hour = hour - rightnow_hour;
-        } else if (hour == rightnow_hour){
-            if (min < rightnow_min)
-                interval_hour = 24 - (rightnow_hour - hour);
-            else
-                interval_hour = hour - rightnow_hour;
-        } else{
-            interval_hour = 24 - (rightnow_hour - hour);
-        }
-        //evaluate the interval minute
-        if (min > rightnow_min)
-            interval_min = min - rightnow_min;
-        else
-            interval_min = 60 - (rightnow_min - min);
-
-        Log.v(TAG, "interval hour =" +  interval_hour);
-        Log.v(TAG, "interval min =" +  interval_min);
-        counting_sec = (interval_hour * 60 * 60) + (interval_min * 60) - rightnow_sec;
-        Log.v(TAG, "=> Counting = " +  counting_sec);
-        cal.add(Calendar.SECOND, counting_sec);
+        cal.set(Calendar.HOUR_OF_DAY, hour);
+        cal.set(Calendar.MINUTE, min);
+        cal.set(Calendar.SECOND, 0);
 
         //Setting intent notify
         Intent intent = new Intent(context, ClockReceiver.class);
-        intent.putExtra("msg", "clock_msg_notify");
-        PendingIntent pi = PendingIntent.getBroadcast(context, 1, intent, PendingIntent.FLAG_ONE_SHOT);
+        intent.putExtra("Sqlite_id", sqlite_id);
+        PendingIntent pi = PendingIntent.getBroadcast(context, _id, intent, PendingIntent.FLAG_ONE_SHOT);
 
         //Binding cal & intent
         AlarmManager alarm_mn = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
-        alarm_mn.set(AlarmManager.RTC_WAKEUP, cal.getTimeInMillis(), pi);
+        Log.v(TAG, "Notify at " + cal.getTime());
+
+        alarm_mn.setInexactRepeating(AlarmManager.RTC_WAKEUP, cal.getTimeInMillis(),AlarmManager.INTERVAL_DAY, pi);
     }
 }
