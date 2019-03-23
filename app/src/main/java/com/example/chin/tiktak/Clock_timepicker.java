@@ -10,6 +10,7 @@ import android.widget.SimpleAdapter;
 import android.widget.TimePicker;
 
 import java.util.Calendar;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -88,18 +89,24 @@ public class Clock_timepicker {
 
         //Setting the clock time
         Calendar cal = Calendar.getInstance();
-        cal.set(Calendar.HOUR_OF_DAY, hour);
-        cal.set(Calendar.MINUTE, min);
+        Date currentTime = Calendar.getInstance().getTime();
+
+        cal.set(Calendar.MILLISECOND, 0);
         cal.set(Calendar.SECOND, 0);
+        cal.set(Calendar.MINUTE, min);
+        cal.set(Calendar.HOUR_OF_DAY, hour);
 
         //Setting intent notify
         Intent intent = new Intent(context, ClockReceiver.class);
         intent.putExtra("Sqlite_id", sqlite_id);
-        PendingIntent pi = PendingIntent.getBroadcast(context, alarm_id, intent, PendingIntent.FLAG_ONE_SHOT);
+        PendingIntent pi = PendingIntent.getBroadcast(context, alarm_id, intent, PendingIntent.FLAG_ONE_SHOT); //setting Intent to be used by other activity (FLAG_UPDATE_CURRENT)
 
         //Binding cal & intent
         AlarmManager alarm_mn = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
         Log.v(TAG, "Notify at " + cal.getTime());
+
+        if (currentTime.getTime() > cal.getTimeInMillis())
+            cal.set(Calendar.DAY_OF_YEAR, cal.get(Calendar.DAY_OF_YEAR) + 1);
 
         alarm_mn.setInexactRepeating(AlarmManager.RTC_WAKEUP, cal.getTimeInMillis(),AlarmManager.INTERVAL_DAY, pi);
     }

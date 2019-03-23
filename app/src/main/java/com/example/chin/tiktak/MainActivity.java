@@ -116,7 +116,7 @@ public class MainActivity extends AppCompatActivity {
 //                    Log.v(TAG, obj.toString());
 //                }
 
-                DB_machine.delete_DB(MainActivity.this);
+//                DB_machine.delete_DB(MainActivity.this);
 //                DB_machine = new DB_machine(MainActivity.this);
 //                Clock_timepicker.notification(MainActivity.this);
 

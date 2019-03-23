@@ -81,7 +81,7 @@ public class clock_list_item_adapter extends SimpleAdapter {
                 String[] split_line = time.split(":");
                 int hour = Integer.parseInt(split_line[0]);
                 int min = Integer.parseInt(split_line[1]);
-                
+
                 if (ring_btn.isChecked())
                 {
                     Log.v(TAG, "RING On");

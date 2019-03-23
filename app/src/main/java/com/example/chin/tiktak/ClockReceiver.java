@@ -30,8 +30,10 @@ public class ClockReceiver extends BroadcastReceiver {
         //get current day
         Date currentTime = Calendar.getInstance().getTime();
         day = currentTime.getDay();
-        Log.v(TAG,"Today is " + day); //(0 = Sunday, 1 = Monday, 2 = Tuesday, 3 = Wednesday, 4 = Thursday, 5 = Friday, 6 = Saturday)
 
+        Log.v(TAG,"Receive time = " + currentTime.getHours() + ":" + currentTime.getMinutes() + ":" +  currentTime.getSeconds());
+        Log.v(TAG,"Today is " + day); //(0 = Sunday, 1 = Monday, 2 = Tuesday, 3 = Wednesday, 4 = Thursday, 5 = Friday, 6 = Saturday)
+        Log.v(TAG,"Setting time = " + getitem.get(DB_machine.TIME_COLUMN));
         //decide whether to notify ringing activity or not
         switch (day)
         {
