@@ -77,15 +77,22 @@ public class clock_list_item_adapter extends SimpleAdapter {
                 Map<String, Object> item;
                 Log.v(TAG, "SQLITE ID = " + sqlite_id);
 
+                String time = getitem.get(DB_machine.TIME_COLUMN).toString();
+                String[] split_line = time.split(":");
+                int hour = Integer.parseInt(split_line[0]);
+                int min = Integer.parseInt(split_line[1]);
+                
                 if (ring_btn.isChecked())
                 {
                     Log.v(TAG, "RING On");
                     db_machine.update(sqlite_id, DB_machine.RING_COLUMN, "TRUE");
+                    Clock_timepicker.notification(main_context, hour, min, Integer.toString((int)sqlite_id));
                 }
                 else
                 {
                     Log.v(TAG, "RING Off");
                     db_machine.update(sqlite_id, DB_machine.RING_COLUMN, "FALSE");
+                    Clock_timepicker.cancel_clock(main_context, (int)sqlite_id);
                 }
 
                 item = db_machine.get_sqldata(sqlite_id);
@@ -116,8 +123,8 @@ public class clock_list_item_adapter extends SimpleAdapter {
                 }
                 else
                 {
-                    db_machine.update(sqlite_id, DB_machine.MON_COLUMN, "FALSE");
                     Log.v(TAG, "Mon Toggle btn Off");
+                    db_machine.update(sqlite_id, DB_machine.MON_COLUMN, "FALSE");
                 }
             }
         });

@@ -26,6 +26,7 @@ import android.widget.ToggleButton;
 
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
@@ -86,16 +87,21 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
 
-                List<Map<String, Object>> getitem;
-                Iterator it;
-                getitem = DB_machine.getAll();
-                it = getitem.iterator();
 
-                while (it.hasNext())
-                {
-                    Object obj = it.next();
-                    Log.v(TAG, obj.toString());
-                }
+//                Date currentTime = Calendar.getInstance().getTime();
+//                //(0 = Sunday, 1 = Monday, 2 = Tuesday, 3 = Wednesday, 4 = Thursday, 5 = Friday, 6 = Saturday)
+//                Log.v(TAG,"Day = " + currentTime.getDay());
+
+//                List<Map<String, Object>> getitem;
+//                Iterator it;
+//                getitem = DB_machine.getAll();
+//                it = getitem.iterator();
+//
+//                while (it.hasNext())
+//                {
+//                    Object obj = it.next();
+//                    Log.v(TAG, obj.toString());
+//                }
 
 //                Map<String, Object> item = (Map<String, Object>) DB_machine.get_sqldata(1);
 //                Log.v(TAG, item.toString());
@@ -110,7 +116,7 @@ public class MainActivity extends AppCompatActivity {
 //                    Log.v(TAG, obj.toString());
 //                }
 
-//                DB_machine.delete_DB(MainActivity.this);
+                DB_machine.delete_DB(MainActivity.this);
 //                DB_machine = new DB_machine(MainActivity.this);
 //                Clock_timepicker.notification(MainActivity.this);
 

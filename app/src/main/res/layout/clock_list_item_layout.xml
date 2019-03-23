@@ -3,100 +3,119 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:tools="http://schemas.android.com/tools"
-    android:weightSum="1"
+    android:weightSum="10"
     android:descendantFocusability="blocksDescendants"
     tools:context="com.example.chin.tiktak.Clock_list_control">
 
     <ToggleButton
         android:id="@+id/Ring_switch_btn"
-        android:layout_width="50dp"
-        android:layout_height="50dp"
+        android:layout_width="0dp"
+        android:layout_height="60dp"
+        android:layout_weight="2"
         android:checked="true"
         android:background="@drawable/clock_btn_bg"
         android:text="New ToggleButton" />
 
     <LinearLayout
         android:orientation="vertical"
-        android:layout_width="wrap_content"
-        android:layout_height="match_parent"
-        android:layout_weight="0.57"
+        android:layout_width="0dp"
+        android:layout_height="60dp"
+        android:layout_weight="7"
         android:descendantFocusability="blocksDescendants"
-        android:weightSum="1">
+        android:weightSum="3">
 
         <TextView
             android:id="@+id/item_clock_time"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_gravity="center_horizontal"
-            android:layout_weight="0.02" />
+            android:layout_weight="1"
+            android:layout_gravity="center_horizontal" />
 
         <LinearLayout
-            android:layout_width="228dp"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
+            android:layout_weight="2"
             android:descendantFocusability="blocksDescendants"
-            android:orientation="horizontal">
+            android:orientation="horizontal"
+            android:weightSum="7">
 
             <ToggleButton
                 android:id="@+id/Sun"
-                android:layout_width="36dp"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="New ToggleButton"
+                android:background="@drawable/sun_btn_bg"
+                android:checked="true"
+                android:layout_weight="1"
                 android:textOff=""
                 android:textOn="" />
 
             <ToggleButton
                 android:id="@+id/Mon"
-                android:layout_width="36dp"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="New ToggleButton"
+                android:background="@drawable/mon_btn_bg"
+                android:scaleType="centerInside"
+                android:checked="true"
+                android:layout_weight="1"
                 android:textOff=""
                 android:textOn="" />
 
             <ToggleButton
-                android:layout_width="36dp"
+                android:id="@+id/Tue"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="New ToggleButton"
+                android:background="@drawable/tue_btn_bg"
+                android:checked="true"
+                android:layout_weight="1"
                 android:textOff=""
-                android:textOn=""
-                android:id="@+id/Tue" />
+                android:textOn="" />
             <ToggleButton
-                android:layout_width="36dp"
+                android:id="@+id/Wed"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="New ToggleButton"
+                android:background="@drawable/wed_btn_bg"
+                android:checked="true"
+                android:layout_weight="1"
                 android:textOff=""
-                android:textOn=""
-                android:id="@+id/Wed" />
+                android:textOn="" />
             <ToggleButton
-                android:layout_width="36dp"
+                android:id="@+id/Thr"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="New ToggleButton"
+                android:background="@drawable/thr_btn_bg"
+                android:checked="true"
+                android:layout_weight="1"
                 android:textOff=""
-                android:textOn=""
-                android:id="@+id/Thr" />
+                android:textOn=""/>
             <ToggleButton
-                android:layout_width="36dp"
+                android:id="@+id/Fri"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="New ToggleButton"
+                android:background="@drawable/fri_btn_bg"
+                android:checked="true"
+                android:layout_weight="1"
                 android:textOff=""
-                android:textOn=""
-                android:id="@+id/Fri" />
+                android:textOn="" />
             <ToggleButton
-                android:layout_width="36dp"
+                android:id="@+id/Sat"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="New ToggleButton"
+                android:background="@drawable/sat_btn_bg"
+                android:checked="true"
+                android:layout_weight="1"
                 android:textOff=""
-                android:textOn=""
-                android:id="@+id/Sat" />
+                android:textOn=""/>
 
         </LinearLayout>
-
 
     </LinearLayout>
 
     <ImageButton
         android:id="@+id/imageButton"
-        android:layout_width="wrap_content"
-        android:layout_height="32dp" />
+        android:layout_width="0dp"
+        android:layout_height="60dp"
+        android:background="@drawable/evt_logo"
+        android:layout_weight="1" />
 
 </LinearLayout>

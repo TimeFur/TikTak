@@ -64,6 +64,7 @@ public class DB_machine {
         ContentValues cv = new ContentValues();
 
         //put the info in cv
+
         cv.put(TIME_COLUMN, item.get(TIME_COLUMN).toString());
         cv.put(RING_COLUMN, item.get(RING_COLUMN).toString());
         cv.put(SUN_COLUMN, item.get(SUN_COLUMN).toString());
@@ -96,7 +97,7 @@ public class DB_machine {
         return result;
     }
 
-    public Map<String, Object> get_sqldata(long id)
+    public static Map<String, Object> get_sqldata(long id)
     {
         Map<String, Object> result = new HashMap<String, Object>();
         String where = KEY_ID + "=" + id;
@@ -113,7 +114,7 @@ public class DB_machine {
         return result;
     }
 
-    private Map getRecord(Cursor cursor)
+    static private Map getRecord(Cursor cursor)
     {
         Map<String, Object> result = new HashMap<String, Object>();
 
