@@ -25,7 +25,9 @@ public class ClockReceiver extends BroadcastReceiver {
         //get sqlite to check day
         String id = (String) data.get("Sqlite_id");
         Map<String, Object> getitem = DB_machine.get_sqldata(Integer.parseInt(id));
-        Log.v(TAG, getitem.toString());
+        String time = getitem.get(DB_machine.TIME_COLUMN).toString();
+        String[] split_line = time.split(":");
+        int hour, min;
 
         //get current day
         Date currentTime = Calendar.getInstance().getTime();
@@ -34,6 +36,7 @@ public class ClockReceiver extends BroadcastReceiver {
         Log.v(TAG,"Receive time = " + currentTime.getHours() + ":" + currentTime.getMinutes() + ":" +  currentTime.getSeconds());
         Log.v(TAG,"Today is " + day); //(0 = Sunday, 1 = Monday, 2 = Tuesday, 3 = Wednesday, 4 = Thursday, 5 = Friday, 6 = Saturday)
         Log.v(TAG,"Setting time = " + getitem.get(DB_machine.TIME_COLUMN));
+
         //decide whether to notify ringing activity or not
         switch (day)
         {
@@ -62,7 +65,10 @@ public class ClockReceiver extends BroadcastReceiver {
         Log.v(TAG,"SWITCH = " + switch_flag);
 
         //Setting for next time
-        
+        hour = Integer.parseInt(split_line[0]);
+        min = Integer.parseInt(split_line[1]);
+        Clock_timepicker.notification(context, hour, min, id);
+
         if (switch_flag.equals("TRUE"))
         {
             Intent ring_intent = new Intent(context, Ring_playground.class);

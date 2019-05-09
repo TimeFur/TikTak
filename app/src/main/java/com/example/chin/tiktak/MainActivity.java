@@ -73,6 +73,9 @@ public class MainActivity extends AppCompatActivity {
         );
         clock_list.setAdapter(Clock_list_adapter);
 
+        //-----------------------------------Listing clock (Search from database)
+//        Clock_timepicker.clock_setting(main_context,null, null, Clock_timepicker.REVISE_TIME);
+
         //-----------------------------------add list click event
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -87,21 +90,34 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
 
+//                DB_machine.delete_DB(MainActivity.this);
+
+
 
 //                Date currentTime = Calendar.getInstance().getTime();
 //                //(0 = Sunday, 1 = Monday, 2 = Tuesday, 3 = Wednesday, 4 = Thursday, 5 = Friday, 6 = Saturday)
 //                Log.v(TAG,"Day = " + currentTime.getDay());
 
-//                List<Map<String, Object>> getitem;
-//                Iterator it;
-//                getitem = DB_machine.getAll();
-//                it = getitem.iterator();
-//
-//                while (it.hasNext())
-//                {
+                List<Map<String, Object>> getitem;
+                Iterator it;
+                getitem = DB_machine.getAll();
+                it = getitem.iterator();
+                while (it.hasNext())
+                {
+                    Map<String, Object> data = (Map<String, Object>) it.next();
+                    String id = (String) data.get("_id");
+                    int alarm_id = Integer.parseInt(id);
 //                    Object obj = it.next();
 //                    Log.v(TAG, obj.toString());
-//                }
+
+                    Intent intent = new Intent(v.getContext(), ClockReceiver.class);
+                    PendingIntent pi = PendingIntent.getBroadcast(v.getContext(), alarm_id, intent, PendingIntent.FLAG_ONE_SHOT);
+                    if (pi == null)
+                        Log.v(TAG, id + " = NULL");
+                    else
+                        Log.v(TAG, id + " = EXIST");
+                }
+
 
 //                Map<String, Object> item = (Map<String, Object>) DB_machine.get_sqldata(1);
 //                Log.v(TAG, item.toString());
@@ -116,8 +132,6 @@ public class MainActivity extends AppCompatActivity {
 //                    Log.v(TAG, obj.toString());
 //                }
 
-//                DB_machine.delete_DB(MainActivity.this);
-//                DB_machine = new DB_machine(MainActivity.this);
 //                Clock_timepicker.notification(MainActivity.this);
 
 //                Intent intent = new Intent(MainActivity.this, Ring_playground.class);

@@ -19,6 +19,7 @@ public class Clock_timepicker {
 
     public static final int CREATE_TIME = 0;
     public static final int REVISE_TIME = 1;
+    public static final int CREATE_EXIST_LIST = 2;
     static String TAG = "Clock time picker";
 
     static DB_machine DB_machine;
@@ -38,18 +39,20 @@ public class Clock_timepicker {
             public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
 
                 String alarm_id;
+                String time;
+                Map<String, Object> item;
 
                 //Get the setting time
                 switch (clock_time_flag)
                 {
                     case CREATE_TIME:
 
-                        Log.v(TAG, "clock_setting create");
+                        Log.v(TAG, "clock_setting new create");
 
                         //create the time clock item
-                        String time = hourOfDay + ":" + minute;
+                        time = hourOfDay + ":" + minute;
 
-                        Map<String, Object> item = new HashMap<String, Object>();
+                        item = new HashMap<String, Object>();
                         item.put(DB_machine.TIME_COLUMN, time);
                         item.put(DB_machine.RING_COLUMN, "TRUE");
                         item.put(DB_machine.SUN_COLUMN, "TRUE");
@@ -72,7 +75,15 @@ public class Clock_timepicker {
 
                         break;
                     case REVISE_TIME:
+
+//                        item = new HashMap<String, Object>();
+//                        cancel_clock(context, item.get(DB_machine.KEY_ID).toString());
+                        time = hourOfDay + ":" + minute;
+
                         Log.v(TAG, "clock_setting revise");
+                        break;
+                    case CREATE_EXIST_LIST:
+
                         break;
                 }
             }
@@ -84,7 +95,6 @@ public class Clock_timepicker {
 
     static public void notification(Context context, int hour, int min, String sqlite_id)
     {
-//        int _id = (int) System.currentTimeMillis();
         int alarm_id = Integer.parseInt(sqlite_id);
 
         //Setting the clock time
@@ -103,11 +113,10 @@ public class Clock_timepicker {
 
         //Binding cal & intent
         AlarmManager alarm_mn = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
-        Log.v(TAG, "Notify at " + cal.getTime());
-
-        if (currentTime.getTime() > cal.getTimeInMillis())
+        if (currentTime.getTime() >= cal.getTimeInMillis())
             cal.set(Calendar.DAY_OF_YEAR, cal.get(Calendar.DAY_OF_YEAR) + 1);
 
+        Log.v(TAG, "Notify at " + cal.getTime());
         alarm_mn.setInexactRepeating(AlarmManager.RTC_WAKEUP, cal.getTimeInMillis(),AlarmManager.INTERVAL_DAY, pi);
     }
 
@@ -123,5 +132,13 @@ public class Clock_timepicker {
         Log.v(TAG, "Cancel alram id : " + id);
         pi = null;
         alarm_mn = null;
+    }
+
+    static boolean check_clock_pending(Context context, int id)
+    {
+        Intent intent = new Intent(context, ClockReceiver.class);
+        if (PendingIntent.getBroadcast(context, id, intent, PendingIntent.FLAG_ONE_SHOT) == null)
+            return false;
+        return true;
     }
 }

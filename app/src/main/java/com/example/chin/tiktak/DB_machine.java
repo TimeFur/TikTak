@@ -4,6 +4,7 @@ import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
+import android.database.sqlite.SQLiteOpenHelper;
 import android.util.Log;
 
 import java.util.ArrayList;
@@ -43,11 +44,13 @@ public class DB_machine {
                     SAT_COLUMN + "  TEXT NOT NULL,  " +
                     MUSIC_COLUMN + "  TEXT " + ")";
 
+    static private DatabaseHelper DBHelper;
     static private SQLiteDatabase DB_instance = null;
 
     public DB_machine(Context context)
     {
-        DB_instance = Database.getDatabase_instance(context);
+        DBHelper = new DatabaseHelper(context);
+        DB_instance = DBHelper.getDatabase_instance(context);
     }
 
     //close database helper
@@ -64,7 +67,6 @@ public class DB_machine {
         ContentValues cv = new ContentValues();
 
         //put the info in cv
-
         cv.put(TIME_COLUMN, item.get(TIME_COLUMN).toString());
         cv.put(RING_COLUMN, item.get(RING_COLUMN).toString());
         cv.put(SUN_COLUMN, item.get(SUN_COLUMN).toString());
@@ -118,6 +120,7 @@ public class DB_machine {
     {
         Map<String, Object> result = new HashMap<String, Object>();
 
+        result.put(KEY_ID, cursor.getString(cursor.getColumnIndex(KEY_ID)));
         result.put(TIME_COLUMN, cursor.getString(cursor.getColumnIndex(TIME_COLUMN)));
         result.put(RING_COLUMN, cursor.getString(cursor.getColumnIndex(RING_COLUMN)));
         result.put(SUN_COLUMN, cursor.getString(cursor.getColumnIndex(SUN_COLUMN)));
@@ -149,6 +152,7 @@ public class DB_machine {
     //delete
     public void delete_DB(Context context)
     {
-        Database.delete_DB(context);
+        DBHelper.delete_DB(context);
+        Log.v(TAG, "Delete Database");
     }
 }
