@@ -73,10 +73,6 @@ public class MainActivity extends AppCompatActivity {
         );
         clock_list.setAdapter(Clock_list_adapter);
 
-//        create_exist_clock(MainActivity.this);
-        //-----------------------------------Listing clock (Search from database)
-//        Clock_timepicker.clock_setting(main_context,null, null, Clock_timepicker.REVISE_TIME);
-
         //-----------------------------------add list click event
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -91,9 +87,8 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
 
-//                DB_machine.delete_DB(MainActivity.this);
+                DB_machine.delete_DB(MainActivity.this);
 
-//                create_exist_clock(v.getContext());
 
 //                Date currentTime = Calendar.getInstance().getTime();
 //                //(0 = Sunday, 1 = Monday, 2 = Tuesday, 3 = Wednesday, 4 = Thursday, 5 = Friday, 6 = Saturday)
@@ -164,30 +159,4 @@ public class MainActivity extends AppCompatActivity {
 
         return super.onOptionsItemSelected(item);
     }
-
-    void create_exist_clock(Context context)
-    {
-        List<Map<String, Object>> getitem;
-        Iterator it;
-
-        getitem = DB_machine.getAll();
-        it = getitem.iterator();
-        while (it.hasNext())
-        {
-            Map<String, Object> data = (Map<String, Object>) it.next();
-            String id = (String) data.get("_id");
-            String active_flag = (String) data.get("RING");
-
-            int alarm_id = Integer.parseInt(id);
-            Intent intent = new Intent(context, ClockReceiver.class);
-            PendingIntent pi = PendingIntent.getBroadcast(context, alarm_id, intent, PendingIntent.FLAG_ONE_SHOT);
-
-            if (pi != null)
-            {
-                Clock_timepicker.create_exit_list(context, Clock_data, Clock_list_adapter, data);
-            }
-
-        }
-    }
-
 }

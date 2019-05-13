@@ -113,7 +113,7 @@
     </LinearLayout>
 
     <ImageButton
-        android:id="@+id/imageButton"
+        android:id="@+id/music_select_id"
         android:layout_width="0dp"
         android:layout_height="60dp"
         android:background="@drawable/setting"
