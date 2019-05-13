@@ -20,7 +20,7 @@ public class Clock_timepicker {
     public static final int CREATE_TIME = 0;
     public static final int REVISE_TIME = 1;
     public static final int CREATE_EXIST_LIST = 2;
-    static String TAG = "Clock time picker";
+    static String TAG = "Clock_time_picker";
 
     static DB_machine DB_machine;
 
@@ -71,6 +71,7 @@ public class Clock_timepicker {
                         notification(context, hourOfDay, minute, item.get(DB_machine.KEY_ID).toString());
 
                         clock_data.add(item);
+
                         clock_list_adapter.notifyDataSetChanged();
 
                         break;
@@ -91,6 +92,12 @@ public class Clock_timepicker {
         timepicker.show();
 
         return true;
+    }
+
+    static public void create_exit_list(Context context, List<Map<String, Object>> clock_data,  SimpleAdapter clock_list_adapter, Map<String, Object> data)
+    {
+        clock_data.add(data);
+        clock_list_adapter.notifyDataSetChanged();
     }
 
     static public void notification(Context context, int hour, int min, String sqlite_id)
@@ -117,7 +124,7 @@ public class Clock_timepicker {
             cal.set(Calendar.DAY_OF_YEAR, cal.get(Calendar.DAY_OF_YEAR) + 1);
 
         Log.v(TAG, "Notify at " + cal.getTime());
-        alarm_mn.setInexactRepeating(AlarmManager.RTC_WAKEUP, cal.getTimeInMillis(),AlarmManager.INTERVAL_DAY, pi);
+        alarm_mn.setRepeating(AlarmManager.RTC_WAKEUP, cal.getTimeInMillis(),AlarmManager.INTERVAL_DAY, pi);
     }
 
     static public void cancel_clock(Context context, int id)
@@ -127,8 +134,9 @@ public class Clock_timepicker {
 
         AlarmManager alarm_mn = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
         PendingIntent pi = PendingIntent.getBroadcast(context, id, intent, PendingIntent.FLAG_ONE_SHOT);
-
+        pi.cancel();
         alarm_mn.cancel(pi);
+
         Log.v(TAG, "Cancel alram id : " + id);
         pi = null;
         alarm_mn = null;

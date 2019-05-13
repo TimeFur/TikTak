@@ -25,6 +25,8 @@
         <receiver android:name=".ClockReceiver">
             <intent-filter>
                 <action android:name="clock_msg_notify" />
+                <action android:name="com.e_eduspace.TIMER_ACTION_REPEATING" />
+                <action android:name="com.e_eduspace.TIMER_ACTION" />
             </intent-filter>
         </receiver>
 

@@ -14,7 +14,8 @@
         android:layout_weight="2"
         android:checked="true"
         android:background="@drawable/clock_btn_bg"
-        android:text="New ToggleButton" />
+        android:textOff=""
+        android:textOn="" />
 
     <LinearLayout
         android:orientation="vertical"

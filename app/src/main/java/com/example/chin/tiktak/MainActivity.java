@@ -53,6 +53,7 @@ public class MainActivity extends AppCompatActivity {
         DB_machine = new DB_machine(MainActivity.this);
 
         //-----------------------------------setting the list adapter
+        Clock_data = DB_machine.getAll();
         Clock_list_adapter = new clock_list_item_adapter(
                 this,
                 Clock_data,
@@ -68,11 +69,11 @@ public class MainActivity extends AppCompatActivity {
                         DB_machine.SAT_COLUMN,
                         DB_machine.MUSIC_COLUMN,
                         DB_machine.KEY_ID,},
-                new int[] {R.id.item_clock_time,
-                            R.id.Ring_switch_btn}
+                new int[] {R.id.item_clock_time,}
         );
         clock_list.setAdapter(Clock_list_adapter);
 
+//        create_exist_clock(MainActivity.this);
         //-----------------------------------Listing clock (Search from database)
 //        Clock_timepicker.clock_setting(main_context,null, null, Clock_timepicker.REVISE_TIME);
 
@@ -92,7 +93,7 @@ public class MainActivity extends AppCompatActivity {
 
 //                DB_machine.delete_DB(MainActivity.this);
 
-
+//                create_exist_clock(v.getContext());
 
 //                Date currentTime = Calendar.getInstance().getTime();
 //                //(0 = Sunday, 1 = Monday, 2 = Tuesday, 3 = Wednesday, 4 = Thursday, 5 = Friday, 6 = Saturday)
@@ -105,17 +106,19 @@ public class MainActivity extends AppCompatActivity {
                 while (it.hasNext())
                 {
                     Map<String, Object> data = (Map<String, Object>) it.next();
+
+                    Log.v(TAG, data.toString());
                     String id = (String) data.get("_id");
+                    String active_flag = (String) data.get("RING");
                     int alarm_id = Integer.parseInt(id);
-//                    Object obj = it.next();
-//                    Log.v(TAG, obj.toString());
 
                     Intent intent = new Intent(v.getContext(), ClockReceiver.class);
                     PendingIntent pi = PendingIntent.getBroadcast(v.getContext(), alarm_id, intent, PendingIntent.FLAG_ONE_SHOT);
-                    if (pi == null)
-                        Log.v(TAG, id + " = NULL");
-                    else
-                        Log.v(TAG, id + " = EXIST");
+
+//                    if (pi == null)
+//                        Log.v(TAG, id + " = NULL, " + active_flag);
+//                    else
+//                        Log.v(TAG, id + " = EXIST, " + active_flag);
                 }
 
 
@@ -160,6 +163,31 @@ public class MainActivity extends AppCompatActivity {
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    void create_exist_clock(Context context)
+    {
+        List<Map<String, Object>> getitem;
+        Iterator it;
+
+        getitem = DB_machine.getAll();
+        it = getitem.iterator();
+        while (it.hasNext())
+        {
+            Map<String, Object> data = (Map<String, Object>) it.next();
+            String id = (String) data.get("_id");
+            String active_flag = (String) data.get("RING");
+
+            int alarm_id = Integer.parseInt(id);
+            Intent intent = new Intent(context, ClockReceiver.class);
+            PendingIntent pi = PendingIntent.getBroadcast(context, alarm_id, intent, PendingIntent.FLAG_ONE_SHOT);
+
+            if (pi != null)
+            {
+                Clock_timepicker.create_exit_list(context, Clock_data, Clock_list_adapter, data);
+            }
+
+        }
     }
 
 }

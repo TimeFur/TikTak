@@ -61,7 +61,7 @@ public class DB_machine {
     }
 
     //Insert clock item
-    public static void insertitem(Map<String, Object> item)
+    public static void  insertitem(Map<String, Object> item)
     {
         long id = -1;
         ContentValues cv = new ContentValues();

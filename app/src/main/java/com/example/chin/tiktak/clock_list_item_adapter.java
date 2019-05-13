@@ -39,20 +39,23 @@ public class clock_list_item_adapter extends SimpleAdapter {
      *                 TextViews. The first N views in this list are given the values of the first N columns
      */
 
-    public clock_list_item_adapter(Context context, List<? extends Map<String, ?>> data, int resource, String[] from, int[] to) {
+    public clock_list_item_adapter(Context context, List<? extends Map<String, Object>> data, int resource, String[] from, int[] to) {
         super(context, data, resource, from, to);
         main_context = context;
         db_machine = new DB_machine(main_context);
 
-        Log.v(TAG, "My Adapter");
+        Log.v(TAG, "My Adapter~");
     }
 
     @Override
     public View getView(int position, View convertView, ViewGroup parent){
         View view = super.getView(position, convertView, parent);
-
         final Map<String, Object> Clock_data = (Map<String, Object>) getItem(position);
-        final long sqlite_id = (long) Clock_data.get(DB_machine.KEY_ID);
+        String flag = "TRUE";
+        Object id = (Object)Clock_data.get(DB_machine.KEY_ID);
+
+//        Log.v(TAG, "Data = " + Clock_data.toString());
+        final long sqlite_id = Long.parseLong(id.toString());
         final Map<String, Object> getitem = db_machine.get_sqldata(sqlite_id);
 
         final TextView clock_tv = (TextView) view.findViewById(R.id.item_clock_time);
@@ -65,17 +68,41 @@ public class clock_list_item_adapter extends SimpleAdapter {
         final ToggleButton saturday_btn = (ToggleButton) view.findViewById(R.id.Sat);
         final ToggleButton sunday_btn = (ToggleButton) view.findViewById(R.id.Sun);
 
+        //checking data to switch status
+        flag = getitem.get(DB_machine.RING_COLUMN).toString();
+        if (flag.equals("FALSE") == true)
+            ring_btn.setChecked(false);
+        flag = getitem.get(DB_machine.SUN_COLUMN).toString();
+        if (flag.equals("FALSE") == true)
+            sunday_btn.setChecked(false);
+        flag = getitem.get(DB_machine.MON_COLUMN).toString();
+        if (flag.equals("FALSE") == true)
+            monday_btn.setChecked(false);
+        flag = getitem.get(DB_machine.TUE_COLUMN).toString();
+        if (flag.equals("FALSE") == true)
+            tuesday_btn.setChecked(false);
+        flag = getitem.get(DB_machine.WED_COLUMN).toString();
+        if (flag.equals("FALSE") == true)
+            wednesday_btn.setChecked(false);
+        flag = getitem.get(DB_machine.THR_COLUMN).toString();
+        if (flag.equals("FALSE") == true)
+            thursday_btn.setChecked(false);
+        flag = getitem.get(DB_machine.FRI_COLUMN).toString();
+        if (flag.equals("FALSE") == true)
+            friday_btn.setChecked(false);
+        flag = getitem.get(DB_machine.SAT_COLUMN).toString();
+        if (flag.equals("FALSE") == true)
+            saturday_btn.setChecked(false);
+
         ring_btn.setText(null);
         ring_btn.setTextOn(null);
         ring_btn.setTextOff(null);
-        Log.v(TAG, "Get View" + position);
-        Log.v(TAG, "Get sqlite data id = " + sqlite_id);
+        Log.v(TAG, "Get View" + position + ", Get sqlite data id = " + sqlite_id);
 
         ring_btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Map<String, Object> item;
-                Log.v(TAG, "SQLITE ID = " + sqlite_id);
 
                 String time = getitem.get(DB_machine.TIME_COLUMN).toString();
                 String[] split_line = time.split(":");
@@ -96,7 +123,7 @@ public class clock_list_item_adapter extends SimpleAdapter {
                 }
 
                 item = db_machine.get_sqldata(sqlite_id);
-                Log.v(TAG, item.toString());
+//                Log.v(TAG, item.toString());
             }
         });
 
