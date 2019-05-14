@@ -136,7 +136,7 @@ public class DB_machine {
     }
 
     //Insert clock item
-    public boolean update(long id, String column, String data)
+    static public boolean update(long id, String column, String data)
     {
         ContentValues cv = new ContentValues();
 

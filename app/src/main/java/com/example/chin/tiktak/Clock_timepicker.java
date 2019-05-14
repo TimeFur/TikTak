@@ -7,6 +7,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.util.Log;
 import android.widget.SimpleAdapter;
+import android.widget.TextView;
 import android.widget.TimePicker;
 
 import java.util.Calendar;
@@ -27,7 +28,9 @@ public class Clock_timepicker {
     static public boolean clock_setting(final Context context,
                                         final SimpleAdapter clock_list_adapter,
                                         final List<Map<String, Object>> clock_data,
-                                        final int clock_time_flag)
+                                        final int clock_time_flag,
+                                        final long id,
+                                        final TextView tv)
     {
         Log.v(TAG, "clock_setting method");
         Calendar cal = Calendar.getInstance();
@@ -38,8 +41,8 @@ public class Clock_timepicker {
             @Override
             public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
 
-                String alarm_id;
                 String time;
+                String flag;
                 Map<String, Object> item;
 
                 //Get the setting time
@@ -77,14 +80,21 @@ public class Clock_timepicker {
                         break;
                     case REVISE_TIME:
 
-//                        item = new HashMap<String, Object>();
-//                        cancel_clock(context, item.get(DB_machine.KEY_ID).toString());
                         time = hourOfDay + ":" + minute;
+                        DB_machine.update(id, DB_machine.TIME_COLUMN, time);
+                        item = DB_machine.get_sqldata(id);
+                        flag = item.get(DB_machine.RING_COLUMN).toString();
 
+                        if (flag.equals("TRUE"))
+                        {
+                            Log.v(TAG, "clock_setting revise~~~CANCEL & re notify");
+                            cancel_clock(context, (int)id);
+                            notification(context, hourOfDay, minute, Long.toString(id));
+                            tv.setText(time);
+                        }
+
+//                        Log.v(TAG, time + ", id = " + id);
                         Log.v(TAG, "clock_setting revise");
-                        break;
-                    case CREATE_EXIST_LIST:
-
                         break;
                 }
             }

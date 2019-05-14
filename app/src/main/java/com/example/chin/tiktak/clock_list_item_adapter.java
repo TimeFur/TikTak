@@ -142,11 +142,8 @@ public class clock_list_item_adapter extends SimpleAdapter {
                 boolean pending_flag = Clock_timepicker.check_clock_pending(main_context, (int)sqlite_id);
 
                 Log.v(TAG, "Pending = " + pending_flag);
-                Clock_timepicker.clock_setting(main_context,null, null, Clock_timepicker.REVISE_TIME);
-//                db_machine.update(sqlite_id, DB_machine.TIME_COLUMN, "FALSE");
-
-                clock_tv.setText(count + "");
-                count++;
+                Clock_timepicker.clock_setting(main_context,null, null, Clock_timepicker.REVISE_TIME, (long)sqlite_id, clock_tv);
+//                clock_tv.setText(count + "");
             }
         });
 

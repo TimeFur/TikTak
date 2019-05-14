@@ -77,7 +77,7 @@ public class MainActivity extends AppCompatActivity {
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Clock_timepicker.clock_setting(MainActivity.this, Clock_list_adapter, Clock_data,Clock_timepicker.CREATE_TIME);
+                Clock_timepicker.clock_setting(MainActivity.this, Clock_list_adapter, Clock_data,Clock_timepicker.CREATE_TIME, -1, null);
             }
         });
 
@@ -87,7 +87,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
 
-                DB_machine.delete_DB(MainActivity.this);
+//                DB_machine.delete_DB(MainActivity.this);
 
 
 //                Date currentTime = Calendar.getInstance().getTime();
