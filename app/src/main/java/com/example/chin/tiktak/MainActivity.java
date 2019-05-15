@@ -132,8 +132,8 @@ public class MainActivity extends AppCompatActivity {
 
 //                Clock_timepicker.notification(MainActivity.this);
 
-//                Intent intent = new Intent(MainActivity.this, Ring_playground.class);
-//                startActivity(intent);
+                Intent intent = new Intent(MainActivity.this, Ring_playground.class);
+                startActivity(intent);
             }
         });
     }
