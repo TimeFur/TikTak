@@ -47,7 +47,7 @@ public class Ring_playground extends AppCompatActivity {
 
                 float x = event.getX();
                 float y = event.getY();
-                
+
                 switch (event.getAction())
                 {
                     case MotionEvent.ACTION_MOVE:
@@ -81,8 +81,8 @@ public class Ring_playground extends AppCompatActivity {
 
             Log.v(TAG, "Target x, y = " + Target_x + ", " + Target_y);
 
-            audioPlayer(getResources().openRawResourceFd(R.raw.one));
-            mp.setVolume(1, 1);
+            audioPlayer(getResources().openRawResourceFd(R.raw.tick));
+
 
 //        Bitmap bitmap = BitmapFactory.decodeResource(getResources(), R.drawable.dragon);
             Bitmap bitmap = Bitmap.createBitmap(ring_ground.getWidth(),ring_ground.getHeight(),Bitmap.Config.ARGB_8888);//創建Bitmap畫布
@@ -104,12 +104,19 @@ public class Ring_playground extends AppCompatActivity {
     public void audioPlayer(AssetFileDescriptor fd)
     {
         mp = new MediaPlayer();
+
         try {
-            mp.setDataSource(fd);
+            String filename = "android.resource://" + this.getPackageName() + "/raw/tick";
+            mp.setDataSource(this, Uri.parse(filename));
             mp.prepare();
+            mp.setLooping(true);
+
             mp.start();
+            mp.setVolume(1, 1);
+
         } catch (Exception e){
             e.printStackTrace();
+            Log.v(TAG, "ERROR MSG: " + e.getMessage());
         }
     }
 

@@ -1,6 +1,7 @@
 package com.example.chin.tiktak;
 
 import android.app.AlarmManager;
+import android.app.AlertDialog;
 import android.app.PendingIntent;
 import android.app.TimePickerDialog;
 import android.content.BroadcastReceiver;
@@ -13,6 +14,7 @@ import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -115,7 +117,7 @@ public class MainActivity extends AppCompatActivity {
 //                    else
 //                        Log.v(TAG, id + " = EXIST, " + active_flag);
                 }
-
+                Log.v(TAG, "Current path = " + v.getContext().getApplicationInfo().dataDir);
 
 //                Map<String, Object> item = (Map<String, Object>) DB_machine.get_sqldata(1);
 //                Log.v(TAG, item.toString());
@@ -132,10 +134,24 @@ public class MainActivity extends AppCompatActivity {
 
 //                Clock_timepicker.notification(MainActivity.this);
 
-                Intent intent = new Intent(MainActivity.this, Ring_playground.class);
-                startActivity(intent);
+//                Intent intent = new Intent(MainActivity.this, Ring_playground.class);
+//                startActivity(intent);
+                createSelectDialog(v.getContext());
             }
         });
+    }
+
+    void createSelectDialog(Context context)
+    {
+        AlertDialog.Builder alert_page = new AlertDialog.Builder(context);
+        LayoutInflater layout = LayoutInflater.from(context);
+        View v = layout.inflate(R.layout.select_music_layout, null);
+
+        alert_page.setMessage("Select song");       //set title
+        alert_page.setView(v);
+
+        AlertDialog dialog = alert_page.create();   //create
+        dialog.show();
     }
 
     @Override

@@ -6,6 +6,7 @@ import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
+import android.widget.ImageButton;
 import android.widget.SimpleAdapter;
 import android.widget.TextView;
 import android.widget.TimePicker;
@@ -69,6 +70,7 @@ public class clock_list_item_adapter extends SimpleAdapter {
 
         final TextView clock_tv = (TextView) view.findViewById(R.id.item_clock_time);
         final ToggleButton ring_btn = (ToggleButton) view.findViewById(R.id.Ring_switch_btn);
+        final ImageButton select_sound_btn = (ImageButton) view.findViewById(R.id.music_select_id);
 
         for (final HashMap.Entry<String, Object> item : item_view_id.entrySet())
         {
@@ -144,6 +146,13 @@ public class clock_list_item_adapter extends SimpleAdapter {
                 Log.v(TAG, "Pending = " + pending_flag);
                 Clock_timepicker.clock_setting(main_context,null, null, Clock_timepicker.REVISE_TIME, (long)sqlite_id, clock_tv);
 //                clock_tv.setText(count + "");
+            }
+        });
+
+        select_sound_btn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Clock_list_control.createSelectDialog(v.getContext());
             }
         });
 
