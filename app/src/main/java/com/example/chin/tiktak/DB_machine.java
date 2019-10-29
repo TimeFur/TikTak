@@ -155,4 +155,11 @@ public class DB_machine {
         DBHelper.delete_DB(context);
         Log.v(TAG, "Delete Database");
     }
+
+    //remove item
+    public void deleteEntry(String id)
+    {
+        String where = KEY_ID + "=" + id;
+        DB_instance.delete(TABLE_NAME, where, null);
+    }
 }

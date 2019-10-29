@@ -21,6 +21,7 @@ import android.view.MenuItem;
 import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.ListView;
+import android.widget.PopupMenu;
 import android.widget.SimpleAdapter;
 import android.widget.TextClock;
 import android.widget.TimePicker;
@@ -76,10 +77,47 @@ public class MainActivity extends AppCompatActivity {
         clock_list.setAdapter(Clock_list_adapter);
 
         //-----------------------------------add list click event
+        clock_list.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
+            @Override
+            public boolean onItemLongClick(AdapterView<?> parent, View view, final int position, long id) {
+
+                final int del_position = position;
+                final String listitem_id = (String)Clock_data.get(position).get(DB_machine.KEY_ID);
+
+                PopupMenu popupMenu = new PopupMenu(MainActivity.this, view);
+                popupMenu.getMenuInflater().inflate(R.menu.listitem_menu, popupMenu.getMenu());
+                popupMenu.show();
+
+                Log.v(TAG, "Long click at " + position);
+                Log.v(TAG, "Click del: " + listitem_id);
+
+                popupMenu.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
+                    @Override
+                    public boolean onMenuItemClick(MenuItem item) {
+
+                        Log.v(TAG, "Click del: " + listitem_id);
+
+                        //remove this item
+                        Clock_data.remove(del_position);
+                        Clock_list_adapter.notifyDataSetChanged();
+
+                        //notify db remove
+                        DB_machine.deleteEntry(listitem_id);
+
+                        return false;
+                    }
+                });
+//                Clock_data.remove(position);
+//                Clock_list_adapter.notifyDataSetChanged();
+
+                return true;
+            }
+        });
+        //-----------------------------------add tab click event
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Clock_timepicker.clock_setting(MainActivity.this, Clock_list_adapter, Clock_data,Clock_timepicker.CREATE_TIME, -1, null);
+                Clock_timepicker.clock_setting(MainActivity.this, Clock_list_adapter, Clock_data, Clock_timepicker.CREATE_TIME, -1, null);
             }
         });
 
