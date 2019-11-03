@@ -8,7 +8,7 @@
         android:label="@string/app_name"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-
+        <activity android:name=".wakeup_sleep_choice"></activity>
         <activity
             android:name=".MainActivity"
             android:label="@string/app_name"
@@ -20,7 +20,7 @@
             </intent-filter>
         </activity>
         <activity android:name=".Ring_playground" />
-        <activity android:name=".Clock_list_control"></activity>
+        <activity android:name=".Clock_list_control" />
 
         <receiver android:name=".ClockReceiver">
             <intent-filter>
@@ -29,7 +29,6 @@
                 <action android:name="com.e_eduspace.TIMER_ACTION" />
             </intent-filter>
         </receiver>
-
     </application>
 
 </manifest>

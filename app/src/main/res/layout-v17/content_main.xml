@@ -12,17 +12,11 @@
     tools:context="com.example.chin.tiktak.MainActivity"
     tools:showIn="@layout/activity_main">
 
-    <TextClock
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/tc_clock_view"/>
-
     <ListView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/lv_clock_list"
-        android:layout_centerHorizontal="true"
-        android:layout_below="@+id/tc_clock_view" />
+        android:layout_centerHorizontal="true"/>
 
     <Button
         android:layout_width="wrap_content"

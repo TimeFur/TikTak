@@ -46,11 +46,13 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        toolbar.setTitle(""); //set Empty title
+        TextClock title_tc = (TextClock) findViewById(R.id.toolbar_tc_clock_view);
         setSupportActionBar(toolbar);
 
         //-----------------------------------setting setting_view
-        TextClock title_tc = (TextClock) findViewById(R.id.tc_clock_view);
         final ListView clock_list = (ListView) findViewById(R.id.lv_clock_list);
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         DB_machine = new DB_machine(MainActivity.this);
@@ -129,7 +131,6 @@ public class MainActivity extends AppCompatActivity {
 
 //                DB_machine.delete_DB(MainActivity.this);
 
-
 //                Date currentTime = Calendar.getInstance().getTime();
 //                //(0 = Sunday, 1 = Monday, 2 = Tuesday, 3 = Wednesday, 4 = Thursday, 5 = Friday, 6 = Saturday)
 //                Log.v(TAG,"Day = " + currentTime.getDay());
@@ -199,18 +200,18 @@ public class MainActivity extends AppCompatActivity {
         return true;
     }
 
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
-        int id = item.getItemId();
-
-        //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
-            return true;
-        }
-
-        return super.onOptionsItemSelected(item);
-    }
+//    @Override
+//    public boolean onOptionsItemSelected(MenuItem item) {
+//        // Handle action bar item clicks here. The action bar will
+//        // automatically handle clicks on the Home/Up button, so long
+//        // as you specify a parent activity in AndroidManifest.xml.
+//        int id = item.getItemId();
+//
+//        //noinspection SimplifiableIfStatement
+//        if (id == R.id.action_settings) {
+//            return true;
+//        }
+//
+//        return super.onOptionsItemSelected(item);
+//    }
 }

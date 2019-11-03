@@ -1,5 +1,7 @@
 package com.example.chin.tiktak;
 
+import android.content.Context;
+import android.content.Intent;
 import android.content.res.AssetFileDescriptor;
 import android.content.res.ColorStateList;
 import android.graphics.Bitmap;
@@ -31,6 +33,7 @@ public class Ring_playground extends AppCompatActivity {
     Random random_obj;
     private int Panel_x, Panel_y;
     private int Target_x, Target_y;
+    double stop_ringing_threshold = 0.1;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,6 +42,8 @@ public class Ring_playground extends AppCompatActivity {
 
         ring_ground = (ImageView)findViewById(R.id.iv_playground);;
         random_obj = new Random();
+
+
 
         //setting the touch event
         ring_ground.setOnTouchListener(new View.OnTouchListener() {
@@ -131,7 +136,16 @@ public class Ring_playground extends AppCompatActivity {
 
         Log.v(TAG, "DOWN RATIO = " + dis_ratio);
         mp.setVolume(dis_ratio, dis_ratio);
-        if (dis_ratio < 0.1)
+
+        if (dis_ratio < stop_ringing_threshold)
+        {
             mp.stop();
+//            Context context = this.getApplicationContext();
+//            Intent wakeup_sleep_intent = new Intent(context, wakeup_sleep_choice.class);
+//            context.startActivity(wakeup_sleep_intent);
+
+            ring_ground.setVisibility(View.GONE);
+        }
+
     }
 }
