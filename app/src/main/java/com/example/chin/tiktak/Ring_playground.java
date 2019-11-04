@@ -34,6 +34,7 @@ public class Ring_playground extends AppCompatActivity {
     private int Panel_x, Panel_y;
     private int Target_x, Target_y;
     double stop_ringing_threshold = 0.1;
+    boolean intent_flag = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,8 +44,6 @@ public class Ring_playground extends AppCompatActivity {
         ring_ground = (ImageView)findViewById(R.id.iv_playground);;
         random_obj = new Random();
 
-
-
         //setting the touch event
         ring_ground.setOnTouchListener(new View.OnTouchListener() {
             @Override
@@ -52,12 +51,15 @@ public class Ring_playground extends AppCompatActivity {
 
                 float x = event.getX();
                 float y = event.getY();
+                boolean adjust_voice_flag = false;
 
                 switch (event.getAction())
                 {
                     case MotionEvent.ACTION_MOVE:
                     case MotionEvent.ACTION_DOWN:
-                        adjust_voice(x, y);
+                        adjust_voice_flag = adjust_voice(x, y);
+                        if (adjust_voice_flag == true)
+                            getGoal();
                         break;
                     case MotionEvent.ACTION_UP:
                         Log.v(TAG, "UP = " + x);
@@ -125,7 +127,7 @@ public class Ring_playground extends AppCompatActivity {
         }
     }
 
-    public void adjust_voice(float x, float y)
+    public boolean adjust_voice(float x, float y)
     {
         float dis_ratio = 0;
         Log.v(TAG, "Touch x, y = " + x + ", " + y + ", Target = " + Target_x + "," + Target_y);
@@ -140,12 +142,22 @@ public class Ring_playground extends AppCompatActivity {
         if (dis_ratio < stop_ringing_threshold)
         {
             mp.stop();
-//            Context context = this.getApplicationContext();
-//            Intent wakeup_sleep_intent = new Intent(context, wakeup_sleep_choice.class);
-//            context.startActivity(wakeup_sleep_intent);
-
-            ring_ground.setVisibility(View.GONE);
+            return true;
         }
+        return false;
+    }
 
+    public void getGoal()
+    {
+        Context context = this.getApplicationContext();
+        Intent wakeup_sleep_intent = new Intent(context, wakeup_sleep_choice.class);
+
+        if (intent_flag == false)
+        {
+            context.startActivity(wakeup_sleep_intent);
+            intent_flag = true;
+
+            Ring_playground.this.finish();
+        }
     }
 }
