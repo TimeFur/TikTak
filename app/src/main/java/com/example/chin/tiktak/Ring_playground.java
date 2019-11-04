@@ -157,6 +157,7 @@ public class Ring_playground extends AppCompatActivity {
             context.startActivity(wakeup_sleep_intent);
             intent_flag = true;
 
+            //close current activity
             Ring_playground.this.finish();
         }
     }

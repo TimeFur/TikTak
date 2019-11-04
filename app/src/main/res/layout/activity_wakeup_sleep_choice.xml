@@ -7,7 +7,7 @@
     tools:context=".wakeup_sleep_choice">
 
     <TextView
-        android:id="@+id/textView"
+        android:id="@+id/countdown_textview"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
@@ -16,13 +16,13 @@
         android:layout_marginEnd="8dp"
         android:layout_marginRight="8dp"
         android:text="Couting"
-        app:layout_constraintBottom_toTopOf="@+id/switch1"
+        app:layout_constraintBottom_toTopOf="@+id/close_switchview"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <Switch
-        android:id="@+id/switch1"
+        android:id="@+id/close_switchview"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Close "
