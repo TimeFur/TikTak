@@ -128,54 +128,7 @@ public class MainActivity extends AppCompatActivity {
         ring_btn.setOnClickListener(new Button.OnClickListener() {
             @Override
             public void onClick(View v) {
-
-//                DB_machine.delete_DB(MainActivity.this);
-
-//                Date currentTime = Calendar.getInstance().getTime();
-//                //(0 = Sunday, 1 = Monday, 2 = Tuesday, 3 = Wednesday, 4 = Thursday, 5 = Friday, 6 = Saturday)
-//                Log.v(TAG,"Day = " + currentTime.getDay());
-
-                List<Map<String, Object>> getitem;
-                Iterator it;
-                getitem = DB_machine.getAll();
-                it = getitem.iterator();
-                while (it.hasNext())
-                {
-                    Map<String, Object> data = (Map<String, Object>) it.next();
-
-                    Log.v(TAG, data.toString());
-                    String id = (String) data.get("_id");
-                    String active_flag = (String) data.get("RING");
-                    int alarm_id = Integer.parseInt(id);
-
-                    Intent intent = new Intent(v.getContext(), ClockReceiver.class);
-                    PendingIntent pi = PendingIntent.getBroadcast(v.getContext(), alarm_id, intent, PendingIntent.FLAG_ONE_SHOT);
-
-//                    if (pi == null)
-//                        Log.v(TAG, id + " = NULL, " + active_flag);
-//                    else
-//                        Log.v(TAG, id + " = EXIST, " + active_flag);
-                }
-                Log.v(TAG, "Current path = " + v.getContext().getApplicationInfo().dataDir);
-
-//                Map<String, Object> item = (Map<String, Object>) DB_machine.get_sqldata(1);
-//                Log.v(TAG, item.toString());
-//                DB_machine.update(1, DB_machine.RING_COLUMN, "FALSE");
-
-//                Log.v(TAG, "------------------------------------");
-//                getitem = DB_machine.get_sqldata(8);
-//                it = getitem.iterator();
-//                while (it.hasNext())
-//                {
-//                    Object obj = it.next();
-//                    Log.v(TAG, obj.toString());
-//                }
-
-//                Clock_timepicker.notification(MainActivity.this);
-
-//                Intent intent = new Intent(MainActivity.this, Ring_playground.class);
-//                startActivity(intent);
-                createSelectDialog(v.getContext());
+                btn_test(4);
             }
         });
     }
@@ -214,4 +167,41 @@ public class MainActivity extends AppCompatActivity {
 //
 //        return super.onOptionsItemSelected(item);
 //    }
+
+    void btn_test(int test_item)
+    {
+        switch (test_item)
+        {
+            case 0:
+                List<Map<String, Object>> getitem = DB_machine.getAll();
+                Iterator it = getitem.iterator();
+
+                while (it.hasNext())
+                {
+                    Map<String, Object> data = (Map<String, Object>)it.next();
+                    String getstatus = "";
+
+                    Log.v(TAG, data.toString());
+                    getstatus = (String)data.get(DB_machine.RING_COLUMN);
+
+                }
+                break;
+            case 1:
+                DB_machine.delete_DB(MainActivity.this);
+                break;
+            case 2:
+                Map<String, Object> item = DB_machine.get_sqldata(1);
+                for (Map.Entry<String, Object> entry: item.entrySet())
+                {
+                    Log.v(TAG, entry.getKey() + " : " + entry.getValue());;
+                }
+
+                break;
+            case 4:
+                Intent intent = new Intent(MainActivity.this, Ring_playground.class);
+                startActivity(intent);
+                break;
+        }
+
+    }
 }
