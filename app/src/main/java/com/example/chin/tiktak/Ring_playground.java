@@ -154,8 +154,9 @@ public class Ring_playground extends AppCompatActivity {
 
         if (intent_flag == false)
         {
-            context.startActivity(wakeup_sleep_intent);
             intent_flag = true;
+            context.startActivity(wakeup_sleep_intent);
+            overridePendingTransition(R.xml.fade_in, R.xml.fade_out);
 
             //close current activity
             Ring_playground.this.finish();
