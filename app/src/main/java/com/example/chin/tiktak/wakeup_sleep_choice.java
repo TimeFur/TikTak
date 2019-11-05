@@ -4,10 +4,8 @@ import android.content.Intent;
 import android.os.CountDownTimer;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
-import android.widget.CompoundButton;
-import android.widget.Switch;
+import android.widget.Button;
 import android.widget.TextView;
 
 public class wakeup_sleep_choice extends AppCompatActivity {
@@ -23,7 +21,9 @@ public class wakeup_sleep_choice extends AppCompatActivity {
         setContentView(R.layout.activity_wakeup_sleep_choice);
 
         final TextView countdown_tv = (TextView) findViewById(R.id.countdown_textview);
-        Switch close_switch = (Switch) findViewById(R.id.close_switchview);
+        Button close_switch_btn = (Button) findViewById(R.id.close_switchview);
+
+        close_switch_btn.setText(R.string.wakeup_switch_btn);
 
         //Counting down flow
         countdowntimer = new CountDownTimer(REMAIN_TIME, SECOND_UNIT)
@@ -42,19 +42,15 @@ public class wakeup_sleep_choice extends AppCompatActivity {
         }.start();
 
         //Counting down flow
-        close_switch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                if (isChecked == true)
-                {
-                    Log.v(TAG, "Switch is checked");
+        close_switch_btn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                //stop couting down
+                countdowntimer.cancel();
 
-                    //stop couting down
-                    countdowntimer.cancel();
-
-                    //jump to MainActivity
-                    Intent intent = new Intent(wakeup_sleep_choice.this, MainActivity.class);
-                    startActivity(intent);
-                }
+                //jump to MainActivity
+                Intent intent = new Intent(wakeup_sleep_choice.this, MainActivity.class);
+                startActivity(intent);
             }
         });
     }

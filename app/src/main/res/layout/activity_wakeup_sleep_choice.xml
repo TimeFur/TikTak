@@ -1,33 +1,36 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:orientation="vertical"
     tools:context=".wakeup_sleep_choice">
 
     <TextView
         android:id="@+id/countdown_textview"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginLeft="8dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginRight="8dp"
+        android:layout_gravity="center"
+        android:gravity="center"
         android:text="Couting"
+        android:textSize="100sp"
+        android:layout_weight="7"
         app:layout_constraintBottom_toTopOf="@+id/close_switchview"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <Switch
-        android:id="@+id/close_switchview"
+    <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Close "
-        tools:layout_editor_absoluteX="164dp"
-        tools:layout_editor_absoluteY="604dp" />
-
-
-</android.support.constraint.ConstraintLayout>
+        android:layout_gravity="center"
+        android:layout_weight="3"
+        android:orientation="vertical">
+        <Button
+            android:id="@+id/close_switchview"
+            android:gravity="center"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+    </LinearLayout>
+</LinearLayout>
