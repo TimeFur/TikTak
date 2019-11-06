@@ -1,0 +1,75 @@
+<?xml version ="1.0" encoding ="utf-8"?><!--  Learn More about how to use App Actions: https://developer.android.com/guide/actions/index.html -->
+<animation-list
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:oneshot="false">
+
+    <item
+        android:drawable="@drawable/cat_sleep0"
+        android:duration="100" />
+    <item
+        android:drawable="@drawable/cat_sleep1"
+        android:duration="100" />
+    <item
+        android:drawable="@drawable/cat_sleep2"
+        android:duration="100" />
+    <item
+        android:drawable="@drawable/cat_sleep3"
+        android:duration="100" />
+    <item
+        android:drawable="@drawable/cat_sleep4"
+        android:duration="100" />
+    <item
+        android:drawable="@drawable/cat_sleep5"
+        android:duration="100" />
+    <item
+        android:drawable="@drawable/cat_sleep6"
+        android:duration="100" />
+    <item
+        android:drawable="@drawable/cat_sleep7"
+        android:duration="100" />
+    <item
+        android:drawable="@drawable/cat_sleep8"
+        android:duration="100" />
+    <item
+        android:drawable="@drawable/cat_sleep9"
+        android:duration="100" />
+    <item
+        android:drawable="@drawable/cat_sleep10"
+        android:duration="100" />
+    <item
+        android:drawable="@drawable/cat_sleep11"
+        android:duration="100" />
+    <item
+        android:drawable="@drawable/cat_sleep12"
+        android:duration="100" />
+    <item
+        android:drawable="@drawable/cat_sleep13"
+        android:duration="100" />
+    <item
+        android:drawable="@drawable/cat_sleep14"
+        android:duration="100" />
+    <item
+        android:drawable="@drawable/cat_sleep15"
+        android:duration="100" />
+    <item
+        android:drawable="@drawable/cat_sleep16"
+        android:duration="100" />
+    <item
+        android:drawable="@drawable/cat_sleep17"
+        android:duration="100" />
+    <item
+        android:drawable="@drawable/cat_sleep18"
+        android:duration="100" />
+    <item
+        android:drawable="@drawable/cat_sleep19"
+        android:duration="100" />
+    <item
+        android:drawable="@drawable/cat_sleep21"
+        android:duration="100" />
+    <item
+        android:drawable="@drawable/cat_sleep22"
+        android:duration="100" />
+    <item
+        android:drawable="@drawable/cat_sleep25"
+        android:duration="100" />
+</animation-list>

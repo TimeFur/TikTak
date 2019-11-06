@@ -11,6 +11,7 @@ import android.graphics.Color;
 import android.graphics.DrawFilter;
 import android.graphics.Paint;
 import android.graphics.Point;
+import android.graphics.drawable.AnimationDrawable;
 import android.graphics.drawable.Drawable;
 import android.graphics.drawable.RippleDrawable;
 import android.media.MediaPlayer;
@@ -22,6 +23,8 @@ import android.view.Display;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 
 import java.util.Random;
 
@@ -30,7 +33,11 @@ public class Ring_playground extends AppCompatActivity {
     String TAG = "Playground";
     public MediaPlayer mp;
     ImageView ring_ground;
+    ImageView targetObject;
+    AnimationDrawable animationObject;
     Random random_obj;
+    RelativeLayout mainLayout;
+    LinearLayout.LayoutParams params;
     private int Panel_x, Panel_y;
     private int Target_x, Target_y;
     double stop_ringing_threshold = 0.1;
@@ -41,7 +48,10 @@ public class Ring_playground extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_ring_playground);
 
+        targetObject = new ImageView(Ring_playground.this);
+        mainLayout = (RelativeLayout)findViewById(R.id.playgounrd_layout);
         ring_ground = (ImageView)findViewById(R.id.iv_playground);;
+        params = new LinearLayout.LayoutParams(200, 200);
         random_obj = new Random();
 
         //setting the touch event
@@ -88,16 +98,26 @@ public class Ring_playground extends AppCompatActivity {
 
             Log.v(TAG, "Target x, y = " + Target_x + ", " + Target_y);
 
+            //play audio
             audioPlayer(getResources().openRawResourceFd(R.raw.tick));
 
+            //setting animation object
+            targetObject.setBackgroundResource(R.drawable.playground_obj);
+            targetObject.setLayoutParams(params);
+            targetObject.setX(Target_x);
+            targetObject.setY(Target_y);
 
-//        Bitmap bitmap = BitmapFactory.decodeResource(getResources(), R.drawable.dragon);
-            Bitmap bitmap = Bitmap.createBitmap(ring_ground.getWidth(),ring_ground.getHeight(),Bitmap.Config.ARGB_8888);//創建Bitmap畫布
-            Paint paint = new Paint();
-            paint.setColor(Color.CYAN);
-            Canvas canvas = new Canvas(bitmap);
-            canvas.drawCircle(Target_x, Target_y, 10, paint);
-            ring_ground.setImageBitmap(bitmap);
+            animationObject = (AnimationDrawable)targetObject.getBackground();
+
+            mainLayout.addView(targetObject);
+            animationObject.start();
+
+//            Bitmap bitmap = Bitmap.createBitmap(ring_ground.getWidth(),ring_ground.getHeight(),Bitmap.Config.ARGB_8888);//創建Bitmap畫布
+//            Paint paint = new Paint();
+//            paint.setColor(Color.CYAN);
+//            Canvas canvas = new Canvas(bitmap);
+//            canvas.drawCircle(Target_x, Target_y, 10, paint);
+//            ring_ground.setImageBitmap(bitmap);
         }
     }
 
