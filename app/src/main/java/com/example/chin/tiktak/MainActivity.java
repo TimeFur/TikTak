@@ -1,16 +1,11 @@
 package com.example.chin.tiktak;
 
-import android.app.AlarmManager;
 import android.app.AlertDialog;
 import android.app.PendingIntent;
-import android.app.TimePickerDialog;
-import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.annotation.IntDef;
 import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
@@ -24,13 +19,7 @@ import android.widget.ListView;
 import android.widget.PopupMenu;
 import android.widget.SimpleAdapter;
 import android.widget.TextClock;
-import android.widget.TimePicker;
-import android.widget.ToggleButton;
-
 import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.Date;
-import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
@@ -128,7 +117,7 @@ public class MainActivity extends AppCompatActivity {
         ring_btn.setOnClickListener(new Button.OnClickListener() {
             @Override
             public void onClick(View v) {
-                btn_test(4);
+                btn_test(5);
             }
         });
     }
@@ -170,12 +159,13 @@ public class MainActivity extends AppCompatActivity {
 
     void btn_test(int test_item)
     {
+        List<Map<String, Object>> getitem = DB_machine.getAll();
+        Iterator it = getitem.iterator();
+        Intent intent;
+
         switch (test_item)
         {
             case 0:
-                List<Map<String, Object>> getitem = DB_machine.getAll();
-                Iterator it = getitem.iterator();
-
                 while (it.hasNext())
                 {
                     Map<String, Object> data = (Map<String, Object>)it.next();
@@ -198,8 +188,21 @@ public class MainActivity extends AppCompatActivity {
 
                 break;
             case 4:
-                Intent intent = new Intent(MainActivity.this, Ring_playground.class);
+                intent = new Intent(MainActivity.this, Ring_playground.class);
                 startActivity(intent);
+                break;
+            case 5:
+                while (it.hasNext())
+                {
+                    Map<String, Object> data = (Map<String, Object>)it.next();
+                    String sqlite_id = (String) data.get(DB_machine.KEY_ID);
+                    int alarm_id = Integer.parseInt(sqlite_id);
+                    boolean flag = false;
+
+                    intent = new Intent(this.getApplicationContext(), ClockReceiver.class);
+                    flag = (PendingIntent.getBroadcast(this.getApplicationContext(), alarm_id, intent, PendingIntent.FLAG_ONE_SHOT) != null);
+                    Log.v(TAG, "SQLITE " + sqlite_id + " = " + flag);;
+                }
                 break;
         }
 

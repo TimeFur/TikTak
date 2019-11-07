@@ -137,7 +137,7 @@ public class Clock_timepicker {
         Log.v(TAG, "Notify at " + cal.getTime());
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT)
-            alarm_mn.setWindow(AlarmManager.RTC_WAKEUP, cal.getTimeInMillis(),AlarmManager.INTERVAL_DAY, pi);
+            alarm_mn.setExact(AlarmManager.RTC_WAKEUP, cal.getTimeInMillis(), pi);
         else
             alarm_mn.setRepeating(AlarmManager.RTC_WAKEUP, cal.getTimeInMillis(),AlarmManager.INTERVAL_DAY, pi);
     }
